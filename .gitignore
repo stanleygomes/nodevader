@@ -1,8 +1,8 @@
 # Docker
-server/storage/mariadb/*
-server/storage/mysql/*
-server/logs/apache2/*
-server/logs/mysql/*
+docker/storage/mariadb/*
+docker/storage/mysql/*
+docker/logs/apache2/*
+docker/logs/mysql/*
 
 # Logs
 logs
