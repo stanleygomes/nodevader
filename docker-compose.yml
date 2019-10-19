@@ -1,0 +1,58 @@
+version: '3.1'
+services:
+  mariadb:
+    image: mariadb
+    container_name: nodejs-mariadb
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_DATABASE=nodetello
+      - MYSQL_USER=nodetello
+      - MYSQL_PASSWORD=nodetello
+      - MYSQL_ROOT_PASSWORD=nodetello
+    volumes:
+      - ./docker/storage/mariadb:/var/lib/mysql
+      # - ./docker/config/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+  flyway:
+    container_name: nodejs-flyway
+    image: boxfuse/flyway:5.2.4
+    command: -url=jdbc:mysql://nodejs-mariadb/nodetello -schemas=nodetello -user=nodetello -password=nodetello -connectRetries=60 migrate
+    volumes:
+      - ./docker/migrations:/flyway/sql
+    depends_on:
+      - mariadb
+  redis:
+    container_name: 'redis'
+    image: redis:latest
+    ports:
+      - "6379:6379"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: 'phpmyadmin'
+    links:
+      - mariadb
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+    ports:
+      - '8888:80'
+    volumes:
+      - /sessions
+    links:
+      - mariadb
+    depends_on:
+      - mariadb
+  api:
+    build: ./docker/bin/nodejs
+    image: api
+    container_name: nodejs-api
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    depends_on:
+      - flyway
