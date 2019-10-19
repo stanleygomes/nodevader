@@ -1,0 +1,43 @@
+{
+  "name": "nodetello",
+  "version": "0.0.1",
+  "description": "A Teenage Mutant Node Boilerplate",
+  "main": "./src/index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "dev": "NODE_ENV=development eslint . && cd ./src && mocha && cd .. && nodemon src/index.js",
+    "prd": "NODE_ENV=production eslint . && pm2 start ecosystem.config.js",
+    "test": "cd ./src && mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stanleygomes/nodetello"
+  },
+  "author": "Stanley Gomes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stanleygomes/nodetello"
+  },
+  "homepage": "https://github.com/stanleygomes/nodetello",
+  "dependencies": {
+    "express": "^4.16.4",
+    "findup-sync": "^4.0.0",
+    "i18n": "^0.8.3",
+    "moment": "^2.24.0",
+    "mustache": "^3.0.1",
+    "mysql": "^2.17.1",
+    "pm2": "^3.5.0",
+    "queue": "^6.0.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^6.3.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "mocha": "^6.1.4",
+    "nodemon": "^1.19.0"
+  }
+}
