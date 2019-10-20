@@ -51,7 +51,7 @@ These are some of patterns definitions to help us to keep a default arquitecture
 
 - **src/assets**: Images, styles, fonts and others;
 - **src/resource**: Endpoints;
-- **src/service**: Code logic;
+- **src/service**: Business logic;
 - **src/routes**: Routes, :];
 - **src/sql**: SQL files using mustache definitions;
 - **src/test**: Mocha and chai unity tests;
