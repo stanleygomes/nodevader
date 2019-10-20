@@ -1,6 +1,6 @@
 # Nodetello
 
-## A Teenage Mutant Node Boilerplate
+A Teenage Mutant Node Boilerplate
 
 The main goal of **Nodetello** is to set patterns to be easily implemented on Nodejs projects. *It was inspired by [Juggernaut](https://github.com/SoftboxLab/juggernaut)*.
 
@@ -16,7 +16,9 @@ Step by step to get this up and running
 
 ### Clone repo and go to project folder
 
-> git clone https://github.com/stanleygomes/nodetello.git && cd nodetello
+```
+git clone https://github.com/stanleygomes/nodetello.git && cd nodetello
+```
 
 ### Install dependencies
 
@@ -44,8 +46,16 @@ These are some of patterns definitions to help us to keep a default arquitecture
 
 - NPM or Yarn? `npm`
 - Node version: v10.x
-- Linter: If You don't use [Gandalf Lint Node](https://github.com/SoftboxLab/gandalf-lint-node), you shall not pass;
-- Database driver: mysql, *for a while*
+- Linter: If You don't use [Gandalf Lint Node](https://github.com/SoftboxLab/gandalf-lint-node), you shall not pass
+- Persistence module: mysql, *for a while*
+- Migrations: Run on a container described in docker-compose file
+- Node Framework: Express
+- SQL Files decoder: Mustache
+- i18n: we have
+- Node servers: Nodemon (dev), PM2 (prd)
+- Test: Mocha & chai
+- Dates: use Moment.js
+- Docker compose and dockerfile attached running migrations e starting database and nodejs
 
 ### Project structure
 
