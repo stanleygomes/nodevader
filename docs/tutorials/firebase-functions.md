@@ -1,7 +1,5 @@
 ## Deploy to firebase functions
 
-### Install firebase CLI
-
 First, install the Firebase CLI if you don't have it.
 
 ```
