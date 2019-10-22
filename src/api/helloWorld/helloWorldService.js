@@ -30,3 +30,36 @@
 // module.exports = {
 //   helloWorld
 // }
+
+
+
+// // my task
+// const mySelect = (table) => {
+//   if (!table)
+//     return false
+
+//   return 'select * from ' + table + 'where 1 = 1';
+// }
+
+// // my promisse
+// const myService = new Promise((resolve, reject) => {
+//   const s = mySelect('usuario')
+
+//   if (s === false) {
+//     var reason = new Error('Por favor, informe a tabela')
+//     reject(reason)
+//   } else {
+//     resolve(s)
+//   }
+// })
+
+// // call to my promisse
+// const call = () => {
+//   myService.then((response) => {
+//     console.log(response)
+//   }).catch((error) => {
+//     console.log(error)
+//   })
+// }
+
+// call()
