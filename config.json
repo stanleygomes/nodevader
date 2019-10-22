@@ -24,7 +24,7 @@
   },
   "showQuery": true,
   "sqlDir": "./src/sql/",
-  "baseEndpoint": "/api/v1",
+  "baseEndpoint": "/",
   "i18n": {
     "locales": [
       "pt-BR",
