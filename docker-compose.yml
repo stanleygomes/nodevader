@@ -14,6 +14,19 @@ services:
     volumes:
       - ./docker/storage/mariadb:/var/lib/mysql
       # - ./docker/config/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+  postgres:
+    image: postgres:9.6-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_PASSWORD: nodetello
+      POSTGRES_USER: nodetello
+      POSTGRES_DB: nodetello
+    stdin_open: true
+    volumes:
+      - ./docker/storage/postgresql:/var/lib/postgresql
+    tty: true
+    ports:
+      - 5432:5432/tcp
   flyway:
     container_name: nodejs-flyway
     image: boxfuse/flyway:5.2.4
