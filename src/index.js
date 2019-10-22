@@ -3,11 +3,11 @@ var findup = require('findup-sync')
 var config = require(findup('config.json'))
 const routes = require('./routes')
 const moment = require('moment')
+const cors = require('cors')
 
 const app = express()
-const baseEndpoint = config.baseEndpoint
-const port = config.server.port
 const timeStart = moment().format('DD/MM/YYYY HH:mm')
 
-app.use(baseEndpoint, routes)
-app.listen(port, () => console.log(`Running on port ${port}. Started at: ${timeStart}`))
+app.use(cors(config.cors))
+app.use(config.baseEndpoint, routes)
+app.listen(config.server.port, () => console.log(`Running on port ${config.server.port}. Started at: ${timeStart}`))
