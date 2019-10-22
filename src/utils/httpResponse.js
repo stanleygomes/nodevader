@@ -1,6 +1,6 @@
 const i18n = require('./i18n')
 
-const httpError = (res, message, status) => {
+const error = (res, message, status) => {
   console.log(message || {}, status || {})
   res
     .status(status || 500)
@@ -11,24 +11,14 @@ const httpError = (res, message, status) => {
     })
 }
 
-const httpJson = (res, data) => {
+const json = (res, data) => {
   res
     .status(200)
     .set('Content-Type', 'application/json')
     .json(data)
 }
 
-const callbackResponse = (res) => {
-  return {
-    callback: (error, results, response) => {
-      error ? httpError(res) : httpJson(res, results)
-    },
-    response: res
-  }
-}
-
 module.exports = {
-  httpError,
-  httpJson,
-  callbackResponse
+  error,
+  json
 }

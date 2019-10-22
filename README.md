@@ -59,11 +59,10 @@ These are some of patterns definitions to help us to keep a default arquitecture
 
 ### Project structure
 
+- **src/api**: Endpoints and business logic
 - **src/assets**: Images, styles, fonts and others
 - **src/middlewares**: Middlewares in routes
-- **src/resource**: Endpoints
 - **src/routes**: Routes, :]
-- **src/service**: Business logic
 - **src/sql**: SQL files using mustache definitions
 - **src/test**: Mocha and chai unity tests
 - **src/utils**: Utilities, constants, assets, configurations, i18n and others
