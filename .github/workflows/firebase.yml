@@ -1,4 +1,4 @@
-name: Node CI
+name: Firebase CI
 on:
   push:
     branches:
