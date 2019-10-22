@@ -16,4 +16,5 @@ app.use(helmet())
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(config.baseEndpoint, routes)
+
 app.listen(config.server.port, () => console.log(`Running on port ${config.server.port}. Started at: ${timeStart}`))
