@@ -11,7 +11,7 @@ const config = {
   },
   production: {
     database: {
-      host: localhost,
+      host: 'localhost',
       port: 41890,
       database: 'nodetello',
       user: 'nodetello',
