@@ -1,8 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const Mustache = require('mustache')
-var findup = require('findup-sync')
-var config = require(findup('config.json'))
+const config = require('./config.js')
 const showQueryDefault = config.showQuery
 const sqlDir = config.sqlDir
 

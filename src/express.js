@@ -1,6 +1,5 @@
 const express = require('express')
-const findup = require('findup-sync')
-const config = require(findup('config.json'))
+const config = require('./config.js')
 const routes = require('./routes')
 const moment = require('moment')
 const cors = require('cors')
