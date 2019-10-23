@@ -31,8 +31,6 @@
 //   helloWorld
 // }
 
-
-
 // // my task
 // const mySelect = (table) => {
 //   if (!table)
