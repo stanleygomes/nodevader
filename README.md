@@ -40,6 +40,15 @@ Via docker-compose (start database, run migrations and start server)
 docker-compose up
 ```
 
+## Git flow
+
+To file a new a feature
+
+- create a branch from `master` branch. Use the pattern: `feature/description`
+- file a pull request on `master` branch
+- since your PR is aproved, it will be merged to `master` branch
+- in a moment in time we'll create a release, using the pattern: `release/vX.X.X`
+
 ## Patterns
 
 These are some of patterns definitions to help us to keep a default arquitecture.
