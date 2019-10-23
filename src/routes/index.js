@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const helloWorldRest = require('../api/helloWorld/helloWorldRest')
+const helloWorldRest = require('../api/helloWorldExample/helloWorldRest')
 const middlewares = require('../middlewares')
 
 router.use(middlewares)

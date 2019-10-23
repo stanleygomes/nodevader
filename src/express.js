@@ -1,5 +1,5 @@
 const express = require('express')
-const config = require('./config.js')
+const config = require('./config.json')
 const routes = require('./routes')
 const moment = require('moment')
 const cors = require('cors')
