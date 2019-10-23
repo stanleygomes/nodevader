@@ -55,13 +55,12 @@ These are some of patterns definitions to help us to keep a default arquitecture
 
 - NPM or Yarn? `npm`
 - Node version: v10.x
-- Linter: If You don't use [Gandalf Lint Node](https://github.com/SoftboxLab/gandalf-lint-node), you shall not pass
-- Persistence module: mysql, *for a while*
+- Linter: eslint standard pattern
 - Migrations: Run on a container described in docker-compose file
 - Node Framework: Express
 - SQL Files decoder: Mustache
 - i18n: we have
-- Node servers: Nodemon (dev), PM2 (prd)
+- Node server: Nodemon and PM2
 - Test: Mocha & chai
 - Dates: use Moment.js
 - Docker compose and dockerfile attached running migrations e starting database and nodejs
