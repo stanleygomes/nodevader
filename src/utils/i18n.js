@@ -1,6 +1,5 @@
 const i18n = require('i18n')
-var findup = require('findup-sync')
-var config = require(findup('config.json'))
+const config = require('./config.js')
 const i18nConfig = config.i18n
 
 i18n.configure(i18nConfig)
