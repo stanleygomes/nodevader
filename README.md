@@ -5,7 +5,7 @@ A Teenage Mutant Node Boilerplate
 The main goal of **Nodetello** is to set patterns to be easily implemented on Nodejs projects. *It was inspired by [Juggernaut](https://github.com/SoftboxLab/juggernaut)*.
 
 <p align="center">
-	<img src="src/assets/images/nodetello.gif" width="400px" />
+	<img src="https://i.imgur.com/hATGQ6Q.gif" width="400px" />
   <br />
   Gif by <a href="https://dribbble.com/Reuno" target="_blank">Reuno</a>
 </p>
