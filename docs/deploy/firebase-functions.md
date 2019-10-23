@@ -79,6 +79,12 @@ Now you can deploy your function to firebase
 firebase deploy
 ```
 
+If you want to get the firebase CLI key for CI/CD. Run
+
+```
+firebase login:ci
+```
+
 Ps.: you may have to fix some lint problems before deploy actualy works. Don't give up.
 
 You can always use the firebase.yml configuration (located in `.github/workflows` folder) to deploy your app to firebase, using github actions.
