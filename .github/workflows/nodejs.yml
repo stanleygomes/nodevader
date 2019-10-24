@@ -5,6 +5,7 @@ on:
       - master
 jobs:
   build:
+    name: Lint and Test on Ubuntu
     runs-on: ubuntu-latest
     strategy:
       matrix:
