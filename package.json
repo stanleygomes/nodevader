@@ -28,13 +28,8 @@
     "i18n": "^0.8.3",
     "moment": "^2.24.0",
     "mustache": "^3.0.1",
-<<<<<<< HEAD
     "nodemailer": "^6.3.1",
-    "pm2": "^3.5.0",
-    "queue": "^6.0.1"
-=======
     "pm2": "^3.5.0"
->>>>>>> master
   },
   "devDependencies": {
     "chai": "^4.2.0",
