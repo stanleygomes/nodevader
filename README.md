@@ -53,7 +53,7 @@ To file a new a feature
 
 These are some of patterns definitions to help us to keep a default arquitecture.
 
-- NPM or Yarn? `npm`
+- NPM or Yarn? npm
 - Node version: v10.x
 - Linter: eslint standard pattern
 - Migrations: Run on a container described in docker-compose file
@@ -61,11 +61,15 @@ These are some of patterns definitions to help us to keep a default arquitecture
 - SQL Files decoder: Mustache
 - i18n: we have
 - Node server: Nodemon and PM2
+- Date and time: moment
 - Test: Mocha & chai
 - Dates: use Moment.js
+- Express: Cors enabled, cookie and body parser, helmet headers
 - Docker compose and dockerfile attached running migrations e starting database and nodejs
 
-### Project structure
+## Project structure
+
+Basic folder structure
 
 - **src/api**: Endpoints and business logic
 - **src/assets**: Images, styles, fonts and others
