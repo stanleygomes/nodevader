@@ -2,9 +2,11 @@
 
 A Teenage Mutant Node Boilerplate
 
-The main goal of **Nodetello** is to set patterns to be easily implemented on Nodejs projects. *It was inspired by [Juggernaut](https://github.com/SoftboxLab/juggernaut)*.
+The main goal of **Nodetello** is to set patterns to be easily implemented on Nodejs projects. We want to make easy to quick start a Nodejs ambient with the basic resources every project could have. Check out the patterns we defined this document bellow.
 
-<p align="center">
+*It was inspired by [Juggernaut](https://github.com/SoftboxLab/juggernaut)*.
+
+<p  align="center" style="background:#fbd38b;padding:15px 0;color:#333">
 	<img src="https://i.imgur.com/hATGQ6Q.gif" width="400px" />
   <br />
   Gif by <a href="https://dribbble.com/Reuno" target="_blank">Reuno</a>
@@ -39,6 +41,8 @@ Via docker-compose (start database, run migrations and start server)
 ```bash
 docker-compose up
 ```
+
+To test it on the browser, simply go to: `http://localhost:3000/helloWorld`
 
 ## Git flow
 
