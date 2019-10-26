@@ -68,6 +68,7 @@ These are some of patterns definitions to help us to keep a default arquitecture
 - Date and time: moment
 - Test: Mocha & chai
 - Dates: use Moment.js
+- Logs: use Winston
 - Express: Cors enabled, cookie and body parser, helmet headers
 - Docker compose and dockerfile attached running migrations e starting database and nodejs
 
