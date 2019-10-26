@@ -68,6 +68,8 @@ If you want to send an attachment, just add `attachments` property to your `emai
  ]
 ```
 
+You can find more in `nodemailer` docs, [right here](https://www.npmjs.com/package/nodemailer).
+
 That's it!!
 
 Now go to practice.
