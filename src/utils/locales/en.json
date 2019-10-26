@@ -1,4 +1,5 @@
 {
   "Hello": "Hello world!!",
-  "generic_error": "Erro interno de sistema."
+  "system_error": "Hillston, we have a problem.",
+  "route_not_found %s": "Route '%s' was not found."
 }
