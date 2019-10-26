@@ -39,5 +39,19 @@
     "defaultLocale": "pt-BR",
     "directory": "./src/utils/locales",
     "autoReload": true
+  },
+  "logger": {
+    "info": {
+      "level": "info",
+      "filename": "logs/nodetello-info.log",
+      "maxsize": 10000,
+      "maxFiles": 10
+    },
+    "error": {
+      "level": "error",
+      "filename": "logs/nodetello-error.log",
+      "maxsize": 10000,
+      "maxFiles": 10
+    }
   }
 }
