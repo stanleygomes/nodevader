@@ -16,6 +16,7 @@ const expressConfig = {
   port: config.server.port
 }
 
+app.use('/static', express.static('src/public'))
 app.use(cors(expressConfig.cors))
 app.use(helmet())
 app.use(cookieParser())
