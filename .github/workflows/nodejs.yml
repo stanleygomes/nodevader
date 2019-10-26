@@ -3,8 +3,12 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - feature/*
 jobs:
   build:
+    name: Lint and Test on Ubuntu
     runs-on: ubuntu-latest
     strategy:
       matrix:
