@@ -29,7 +29,6 @@
     "moment": "^2.24.0",
     "mustache": "^3.0.1",
     "pm2": "^3.5.0",
-    "queue": "^6.0.1",
     "winston": "^3.2.1"
   },
   "devDependencies": {
