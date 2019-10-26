@@ -62,7 +62,6 @@ const sendMail = (emailData) => {
         response: resolved
       }
 
-      console.log(response)
       resolve(response)
     }).catch((error) => {
       const errorMessage = new Error(error)
