@@ -1,55 +1,69 @@
 {
-  "development": {
-    "database": {
-      "host": "localhost",
-      "port": "3306",
-      "database": "nodetello",
-      "user": "nodetello",
-      "password": "nodetello",
-      "max": 15
-    }
-  },
-  "production": {
-    "database": {
-      "host": "localhost",
-      "port": "41890",
-      "database": "nodetello",
-      "user": "nodetello",
-      "password": "nodetello",
-      "max": 15
-    }
-  },
-  "server": {
-    "port": 3000
-  },
-  "showQuery": true,
-  "sqlDir": "./src/sql/",
-  "baseEndpoint": "/",
-  "cors": {
-    "origin": "*",
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "preflightContinue": false,
-    "optionsSuccessStatus": 204
-  },
-  "i18n": {
-    "locales": [
-      "pt-BR",
-      "en"
-    ],
-    "defaultLocale": "pt-BR",
-    "directory": "./src/utils/locales",
-    "autoReload": true
-  },
-  "smtp": {
-    "host": "smtp.your-server.com",
-    "port": 587,
-    "secure": false,
-    "auth": {
-      "user": "your-email@your-server.com.br",
-      "pass": "YourPassword"
-    },
-    "send": {
-      "from": "Your name 👻 <your-email@your-server.com.br>"
-    }
-  }
+	"development": {
+		"database": {
+			"host": "localhost",
+			"port": "3306",
+			"database": "nodetello",
+			"user": "nodetello",
+			"password": "nodetello",
+			"max": 15
+		}
+	},
+	"production": {
+		"database": {
+			"host": "localhost",
+			"port": "41890",
+			"database": "nodetello",
+			"user": "nodetello",
+			"password": "nodetello",
+			"max": 15
+		}
+	},
+	"server": {
+		"port": 3000
+	},
+	"showQuery": true,
+	"sqlDir": "./src/sql/",
+	"baseEndpoint": "/",
+	"cors": {
+		"origin": "*",
+		"methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+		"preflightContinue": false,
+		"optionsSuccessStatus": 204
+	},
+	"i18n": {
+		"locales": [
+			"pt-BR",
+			"en"
+		],
+		"defaultLocale": "pt-BR",
+		"directory": "./src/utils/locales",
+		"autoReload": true
+	},
+	"logger": {
+		"info": {
+			"level": "info",
+			"filename": "logs/nodetello-info.log",
+			"maxsize": 10000,
+			"maxFiles": 10
+		},
+		"error": {
+			"level": "error",
+			"filename": "logs/nodetello-error.log",
+			"maxsize": 10000,
+			"maxFiles": 10
+		}
+	},
+	"smtp": {
+		"host": "smtp.your-server.com",
+		"port": 587,
+		"secure": false,
+		"auth": {
+			"user": "your-email@your-server.com.br",
+			"pass": "YourPassword"
+		},
+		"send": {
+			"from": "Your name 👻 <your-email@your-server.com.br>"
+		}
+	}
 }
