@@ -63,6 +63,7 @@ These are some of patterns definitions to help us to keep a default arquitecture
 - Node server: Nodemon and PM2
 - Test: Mocha & chai
 - Dates: use Moment.js
+- Logs: use Winston
 - Docker compose and dockerfile attached running migrations e starting database and nodejs
 
 ### Project structure
