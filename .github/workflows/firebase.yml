@@ -5,7 +5,7 @@ on:
       - master
 jobs:
   build:
-    name: Run Ubuntu
+    name: Run Firebase deploy on Ubuntu
     runs-on: ubuntu-latest
     steps:
     - name: Checkout master branch

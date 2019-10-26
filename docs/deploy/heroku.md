@@ -39,6 +39,4 @@ heroku login -i
 
 Ps.: you may have to fix some lint problems before deploy actualy works. Don't give up.
 
-You can always use the firebase.yml configuration (located in `.github/workflows` folder) to deploy your app to firebase, using github actions.
-
 Thanks and Good luck.
