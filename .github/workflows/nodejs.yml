@@ -1,10 +1,11 @@
 name: Lint and test
 on:
-  push:
+  pull_request:
     branches:
-      - master
+      - feature/*
 jobs:
   build:
+    name: Lint and Test on Ubuntu
     runs-on: ubuntu-latest
     strategy:
       matrix:
