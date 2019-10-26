@@ -39,5 +39,17 @@
     "defaultLocale": "pt-BR",
     "directory": "./src/utils/locales",
     "autoReload": true
+  },
+  "smtp": {
+    "host": "smtp.your-server.com",
+    "port": 587,
+    "secure": false,
+    "auth": {
+      "user": "your-email@your-server.com.br",
+      "pass": "YourPassword"
+    },
+    "send": {
+      "from": "Your name 👻 <your-email@your-server.com.br>"
+    }
   }
 }
