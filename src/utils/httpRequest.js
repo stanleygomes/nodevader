@@ -19,8 +19,8 @@ const post = (params) => {
     const defaultParams = {
       baseURL: '',
       method: 'post',
-      url: '',
-      headers: { 'X-Requested-With': 'XMLHttpRequest' },
+      url: ''
+      headers: {},
       params: {},
       data: {},
       timeout: 1000,
