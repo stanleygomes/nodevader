@@ -9,6 +9,34 @@ const schema = joi.object().keys({
 
 const post = (params) => {
   return new Promise((resolve, reject) => {
+    const postParams = {
+      method: 'post'
+    }
+
+    request({ ...params, ...postParams }).then((response) => {
+      resolve(response)
+    }).catch((error) => {
+      reject(error)
+    })
+  })
+}
+
+const get = (params) => {
+  return new Promise((resolve, reject) => {
+    const getParams = {
+      method: 'get'
+    }
+
+    request({ ...params, ...getParams }).then((response) => {
+      resolve(response)
+    }).catch((error) => {
+      reject(error)
+    })
+  })
+}
+
+const request = (params) => {
+  return new Promise((resolve, reject) => {
     const result = joi.validate(params, schema)
 
     if (!result) {
@@ -36,5 +64,6 @@ const post = (params) => {
 }
 
 module.exports = {
-  post
+  post,
+  get
 }
