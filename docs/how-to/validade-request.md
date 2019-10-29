@@ -17,17 +17,17 @@ const joi = require('@hapi/joi')
 One more step, define a validation schema
 
 ```javascript
-const schema = Joi.object().keys({
-  username: Joi.string().alphanum().min(3).max(30).required(),
-  password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/),
-  repeat_password: Joi.ref('password'),
+const schema = joi.object().keys({
+  username: joi.string().alphanum().min(3).max(30).required(),
+  password: joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/),
+  repeat_password: joi.ref('password'),
 })
 ```
 
 And as the last thing, we'll validade our request
 
 ```javascript
-const result = Joi.validate(req.body, schema)
+const result = joi.validate(req.body, schema)
 if (result.error) {
   return res.status(400).json({ error: result.error });
 }

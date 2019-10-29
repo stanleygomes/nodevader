@@ -4,7 +4,9 @@ const httpResponse = require('../../utils/httpResponse')
 const helloWorldService = require('./helloWorldService')
 
 helloWorldRest.get('', (req, res) => {
-  httpResponse.json(res, helloWorldService.helloWorld())
+  helloWorldService.helloWorld().then((response) => {
+    httpResponse.json(res, response)
+  })
 })
 
 module.exports = helloWorldRest
