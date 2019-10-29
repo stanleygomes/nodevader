@@ -19,7 +19,7 @@ const post = (params) => {
     const defaultParams = {
       baseURL: '',
       method: 'post',
-      url: ''
+      url: '',
       headers: {},
       params: {},
       data: {},
