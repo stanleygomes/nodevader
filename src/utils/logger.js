@@ -38,7 +38,7 @@ const info = (message) => {
     level: 'info',
     transports: [
       new winston.transports.Console(),
-      new winston.transports.File(config.logger.error)
+      new winston.transports.File(config.logger.info)
     ]
   }
 
