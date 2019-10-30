@@ -3,6 +3,7 @@ const sampleRest = express.Router()
 const httpResponse = require('../../utils/httpResponse')
 const sampleService = require('./sampleService')
 const logger = require('../../utils/logger')
+const smtp = require('../../utils/smtp')
 const httpRequest = require('../../utils/httpRequest')
 
 sampleRest.get('/logger', (req, res) => {
@@ -29,6 +30,34 @@ sampleRest.get('/httpRequest', (req, res) => {
     httpResponse.json(res, response)
   }).catch((error) => {
     console.log('error')
+    httpResponse.error(res, error)
+  })
+})
+
+sampleRest.get('/sendMail', (req, res) => {
+  const emailData = {
+    to: ['recipient1@server.com', 'recipient2@server.com'],
+    subject: 'Hello ✔✔✔',
+    html: '<b>Hello world ✔✔✔</b>'
+  }
+
+  smtp.sendMail(emailData).then((response) => {
+    console.log(response)
+    httpResponse.json(res, response)
+  }).catch((error) => {
+    console.log(error)
+    logger.error(error)
+    httpResponse.error(res, error)
+  })
+})
+
+sampleRest.get('/validateJsonBody', (req, res) => {
+  sampleService.validateJsonBody(req).then((response) => {
+    console.log(response)
+    httpResponse.json(res, response)
+  }).catch((error) => {
+    console.log(error)
+    logger.error(error)
     httpResponse.error(res, error)
   })
 })
