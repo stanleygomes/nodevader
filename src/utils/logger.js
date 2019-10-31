@@ -27,10 +27,10 @@ const log = (message, level) => {
     transports: [
       new winston.transports.Console(),
       new winston.transports.File({
-        'level': 'info',
-        'filename': 'logs/nodetello-' + (level || 'info') + '.log',
-        'maxsize': 10000,
-        'maxFiles': 10
+        level: 'info',
+        filename: 'logs/nodetello-' + (level || 'info') + '.log',
+        maxsize: 10000,
+        maxFiles: 10
       })
     ]
   }
