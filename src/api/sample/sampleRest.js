@@ -9,8 +9,10 @@ const firestore = require('../../utils/firebase')
 
 sampleRest.get('/firestore', (req, res) => {
   firestore.createOrUpdateDocument('myFirstCollection', { message: 'Hello World 2!!' }, 'messages').then((response) => {
-    firestore.deleteDocument('myFirstCollection', 'messages').then((response) => {
+    firestore.uploadFile().then(response => {
+      // firestore.deleteDocument('myFirstCollection', 'messages').then((response) => {
       httpResponse.json(res, response)
+      // })
     })
   }).catch((error) => {
     httpResponse.error(res, error)
