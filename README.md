@@ -64,7 +64,7 @@ These are some of patterns definitions to help us to keep a default arquitecture
 - Node Framework: Express
 - SQL Files decoder: Mustache
 - i18n: we have
-- Node server: Nodemon and PM2
+- Node server: Nodemon
 - Date and time: moment
 - Test: Mocha & chai
 - Dates: use Moment.js
