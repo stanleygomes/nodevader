@@ -1,24 +1,4 @@
 {
-	"development": {
-		"database": {
-			"host": "localhost",
-			"port": "3306",
-			"database": "nodetello",
-			"user": "nodetello",
-			"password": "nodetello",
-			"max": 15
-		}
-	},
-	"production": {
-		"database": {
-			"host": "localhost",
-			"port": "41890",
-			"database": "nodetello",
-			"user": "nodetello",
-			"password": "nodetello",
-			"max": 15
-		}
-	},
 	"server": {
 		"port": 3000
 	},
