@@ -7,6 +7,10 @@ const helmet = require('helmet')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const i18n = require('./utils/i18n')
+const dotenv = require('dotenv')
+
+// Example: process.env.DB_HOST
+dotenv.config()
 
 const app = express()
 const timeStart = moment().format('DD/MM/YYYY HH:mm')
