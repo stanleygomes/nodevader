@@ -17,7 +17,7 @@
 			"en"
 		],
 		"defaultLocale": "pt-BR",
-		"directory": "./src/utils/locales",
+		"directory": "/locales",
 		"autoReload": true
 	},
 	"smtp": {

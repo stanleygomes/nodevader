@@ -4,9 +4,8 @@
   "description": "A Teenage Mutant Node Boilerplate",
   "main": "./src/index.js",
   "scripts": {
-    "lint": "eslint .",
-    "dev": "NODE_ENV=development eslint . && cd ./src && mocha && cd .. && nodemon src/index.js",
-    "prd": "NODE_ENV=production eslint . && pm2 start ecosystem.config.js",
+    "dev": "NODE_ENV=development eslint . && cd ./src && mocha && nodemon src/index.js",
+    "prd": "NODE_ENV=production eslint . && cd ./src && mocha && pm2 start src/ecosystem.config.js --no-daemon",
     "test": "NODE_ENV=test eslint . && cd ./src && mocha"
   },
   "repository": {
@@ -32,7 +31,6 @@
     "moment": "^2.24.0",
     "mustache": "^3.0.1",
     "nodemailer": "^6.3.1",
-    "pm2": "^3.5.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
@@ -43,7 +41,6 @@
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
-    "mocha": "^6.1.4",
-    "nodemon": "^1.19.0"
+    "mocha": "^6.1.4"
   }
 }
