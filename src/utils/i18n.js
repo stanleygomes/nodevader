@@ -1,4 +1,5 @@
 const i18n = require('i18n')
+const path = require('path')
 const config = require('../config.json')
 const i18nConfig = config.i18n
 i18nConfig.directory = path.join(__dirname, config.i18n.directory)
