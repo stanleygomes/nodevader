@@ -8,7 +8,7 @@ jobs:
     name: Connect via SSH
     runs-on: ubuntu-latest
     steps:
-    - name: Sign in to remote server
+    - name: Sign in to remote server and deploy
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
@@ -20,9 +20,6 @@ jobs:
           # baixar atualizacoes de codigo
           git checkout -- .
           git pull origin master
-          # substituir configs para o server
-          rm docker-compose.yml
-          cp docker-compose-prd.yml docker-compose.yml
           # rm .env
           cp .env.prd .env
           # subir os containers
