@@ -4,6 +4,7 @@ const httpResponse = require('../../utils/httpResponse')
 const sampleService = require('./sampleService')
 const logger = require('../../utils/logger')
 const smtp = require('../../utils/smtp')
+const fs = require('../../utils/fs')
 const httpRequest = require('../../utils/httpRequest')
 
 sampleRest.get('/logger', (req, res) => {
@@ -17,6 +18,12 @@ sampleRest.get('/logger', (req, res) => {
 sampleRest.get('/helloWorld', (req, res) => {
   sampleService.helloWorld().then((response) => {
     httpResponse.json(res, response)
+  })
+})
+
+sampleRest.get('/fs', (req, res) => {
+  fs.writeFile('./test.txt', 'hello!').then(response => {
+    console.log(response)
   })
 })
 
