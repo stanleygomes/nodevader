@@ -1,36 +1,36 @@
 const express = require('express')
 const sampleRest = express.Router()
-const httpResponse = require('../../utils/httpResponse')
+const httpResponseUtils = require('../../utils/httpResponseUtilsUtils')
 const sampleService = require('./sampleService')
-const logger = require('../../utils/logger')
-const smtp = require('../../utils/smtp')
-const httpRequest = require('../../utils/httpRequest')
+const loggerUtils = require('../../utils/loggerUtils')
+const smtpUtils = require('../../utils/smtpUtils')
+const httpRequestUtils = require('../../utils/httpRequestUtils')
 
 sampleRest.get('/logger', (req, res) => {
-  logger.error('Error!!')
-  logger.info('Info!!')
-  httpResponse.json(res, {
+  loggerUtils.error('Error!!')
+  loggerUtils.info('Info!!')
+  httpResponseUtils.json(res, {
     message: 'Written log to a file'
   })
 })
 
 sampleRest.get('/helloWorld', (req, res) => {
   sampleService.helloWorld().then((response) => {
-    httpResponse.json(res, response)
+    httpResponseUtils.json(res, response)
   })
 })
 
-sampleRest.get('/httpRequest', (req, res) => {
+sampleRest.get('/httpRequestUtils', (req, res) => {
   const params = {
     url: 'https://cdn.vox-cdn.com/thumbor/Pkmq1nm3skO0-j693JTMd7RL0Zk=/0x0:2012x1341/1200x800/filters:focal(0x0:2012x1341)/cdn.vox-cdn.com/uploads/chorus_image/image/47070706/google2.0.0.jpg'
   }
 
-  httpRequest.get(params).then((response) => {
+  httpRequestUtils.get(params).then((response) => {
     console.log('OK')
-    httpResponse.json(res, response)
+    httpResponseUtils.json(res, response)
   }).catch((error) => {
     console.log('error')
-    httpResponse.error(res, error)
+    httpResponseUtils.error(res, error)
   })
 })
 
@@ -41,24 +41,24 @@ sampleRest.get('/sendMail', (req, res) => {
     html: '<b>Hello world ✔✔✔</b>'
   }
 
-  smtp.sendMail(emailData).then((response) => {
+  smtpUtils.sendMail(emailData).then((response) => {
     console.log(response)
-    httpResponse.json(res, response)
+    httpResponseUtils.json(res, response)
   }).catch((error) => {
     console.log(error)
-    logger.error(error)
-    httpResponse.error(res, error)
+    loggerUtils.error(error)
+    httpResponseUtils.error(res, error)
   })
 })
 
 sampleRest.get('/validateJsonBody', (req, res) => {
   sampleService.validateJsonBody(req).then((response) => {
     console.log(response)
-    httpResponse.json(res, response)
+    httpResponseUtils.json(res, response)
   }).catch((error) => {
     console.log(error)
-    logger.error(error)
-    httpResponse.error(res, error)
+    loggerUtils.error(error)
+    httpResponseUtils.error(res, error)
   })
 })
 
