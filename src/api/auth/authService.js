@@ -22,13 +22,13 @@ const login = (req, res) => {
       password: bcrypt.hash('123456', 10)
     }
 
-    jwtUtil.generateAuthToken().then(response => {
+    delete user.password
+
+    jwtUtil.generateAuthToken(user).then(response => {
       user.token = response
-      delete user.password
       resolve(response)
-      res.header('x-auth-token', response).send(user)
     }).catch(error => {
-      res.send(error)
+      reject(error)
     })
   })
 }
