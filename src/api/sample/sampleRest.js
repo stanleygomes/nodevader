@@ -5,15 +5,11 @@ const sampleService = require('./sampleService')
 const logger = require('../../utils/logger')
 const smtp = require('../../utils/smtp')
 const httpRequest = require('../../utils/httpRequest')
-const firestore = require('../../utils/firebase')
+const firestore = require('../../utils/firebaseUtils')
 
 sampleRest.get('/firestore', (req, res) => {
   firestore.createOrUpdateDocument('myFirstCollection', { message: 'Hello World 2!!' }, 'messages').then((response) => {
-    firestore.uploadFile().then(response => {
-      // firestore.deleteDocument('myFirstCollection', 'messages').then((response) => {
-      httpResponse.json(res, response)
-      // })
-    })
+    httpResponse.json(res, response)
   }).catch((error) => {
     httpResponse.error(res, error)
   })
