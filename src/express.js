@@ -6,7 +6,7 @@ const cors = require('cors')
 const helmet = require('helmet')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
-const i18n = require('./utils/i18n')
+const i18nUtils = require('./utils/i18nUtils')
 const dotenv = require('dotenv')
 
 // Example: process.env.DB_HOST
@@ -31,14 +31,14 @@ app.use(expressConfig.baseEndpoint, routes)
 app.use((req, res, next) => {
   return res
     .status(404)
-    .send({ message: i18n.translate('route_not_found %s', req.url) })
+    .send({ message: i18nUtils.translate('route_not_found %s', req.url) })
 })
 
 app.use((err, req, res, next) => {
   if (err) {
     return res
       .status(500)
-      .send({ message: i18n.translate('system_error') })
+      .send({ message: i18nUtils.translate('system_error') })
   }
 })
 

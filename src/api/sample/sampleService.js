@@ -1,5 +1,5 @@
-const i18n = require('../../utils/i18n')
-const message = i18n.translate('Hello')
+const i18nUtils = require('../../utils/i18nUtils')
+const message = i18nUtils.translate('Hello')
 const joi = require('@hapi/joi')
 
 const schema = joi.object().keys({
