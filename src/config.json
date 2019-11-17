@@ -31,5 +31,6 @@
 		"send": {
 			"from": "Your name 👻 <your-email@your-server.com.br>"
 		}
-	}
+	},
+  "privateKey": "youShoudDescribeAStrongAndPowerfulPrivateKeyHere"
 }
