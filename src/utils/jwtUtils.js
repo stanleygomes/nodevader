@@ -28,9 +28,9 @@ const validateToken = (req) => {
   })
 }
 
-const generateAuthToken = function () {
+const generateAuthToken = function (user) {
   return new Promise((resolve, reject) => {
-    const token = jwt.sign({ _id: 1000 }, config.privateKey)
+    const token = jwt.sign(user, config.privateKey)
     if (token === null || token === undefined) {
       const error = 'Error generating token'
       reject(error)
