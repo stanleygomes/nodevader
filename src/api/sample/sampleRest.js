@@ -1,6 +1,6 @@
 const express = require('express')
 const sampleRest = express.Router()
-const httpResponseUtils = require('../../utils/httpResponseUtilsUtils')
+const httpResponseUtils = require('../../utils/httpResponseUtils')
 const sampleService = require('./sampleService')
 const loggerUtils = require('../../utils/loggerUtils')
 const smtpUtils = require('../../utils/smtpUtils')
