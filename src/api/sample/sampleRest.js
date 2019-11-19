@@ -2,6 +2,7 @@ const express = require('express')
 const sampleRest = express.Router()
 const httpResponseUtils = require('../../utils/httpResponseUtils')
 const sampleService = require('./sampleService')
+const fsUtils = require('../../utils/fsUtils')
 const firebase = require('../../utils/firebaseUtils')
 const fileUtils = require('../../utils/fileUtils')
 const loggerUtils = require('../../utils/loggerUtils')
@@ -29,6 +30,7 @@ sampleRest.get('/firebase/upload', fileUtils.single('file'), (req, res) => {
     })
   }
 })
+>>>>>>> master
 
 sampleRest.get('/logger', (req, res) => {
   loggerUtils.error('Error!!')
@@ -44,7 +46,13 @@ sampleRest.get('/helloWorld', (req, res) => {
   })
 })
 
-sampleRest.get('/httpRequestUtils', (req, res) => {
+sampleRest.get('/fs', (req, res) => {
+  fs.writeFile('./test.txt', 'hello!').then(response => {
+    console.log(response)
+  })
+})
+
+sampleRest.get('/httpRequest', (req, res) => {
   const params = {
     url: 'https://cdn.vox-cdn.com/thumbor/Pkmq1nm3skO0-j693JTMd7RL0Zk=/0x0:2012x1341/1200x800/filters:focal(0x0:2012x1341)/cdn.vox-cdn.com/uploads/chorus_image/image/47070706/google2.0.0.jpg'
   }
