@@ -1,4 +1,4 @@
-const i18n = require('./i18n')
+const i18nUtils = require('./i18nUtils')
 
 const error = (res, message, status) => {
   console.log(message || {}, status || {})
@@ -7,7 +7,7 @@ const error = (res, message, status) => {
     .set('Content-Type', 'application/json')
     .json({
       status: status || 500,
-      message: (message || i18n.translate('generic_error'))
+      message: (message || i18nUtils.translate('generic_error'))
     })
 }
 

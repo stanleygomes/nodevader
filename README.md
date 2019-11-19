@@ -70,6 +70,7 @@ These are some of patterns definitions to help us to keep a default arquitecture
 - Dates: use Moment.js
 - Logs: use Winston
 - Http Request: use Axios
+- Authentication: JWT
 - Express: Cors enabled, cookie and body parser, helmet headers
 - Docker compose and dockerfile attached running migrations e starting database and nodejs
 

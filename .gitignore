@@ -4,6 +4,9 @@ docker/storage/mysql/*
 docker/logs/apache2/*
 docker/logs/mysql/*
 
+# Certs
+certs/*.cert
+
 # Logs
 logs
 *.log

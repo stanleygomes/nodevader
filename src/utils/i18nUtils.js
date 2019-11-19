@@ -1,5 +1,5 @@
 const i18n = require('i18n')
-const config = require('../config.json')
+const config = require('../config')
 const i18nConfig = config.i18n
 
 i18n.configure(i18nConfig)

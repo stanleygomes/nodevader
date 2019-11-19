@@ -1,16 +1,19 @@
-const googleStorage = require('@google-cloud/storage')
+const { Storage } = require('@google-cloud/storage')
 const firebaseAdmin = require('firebase-admin')
-const config = require('../config.json')
-// how to get your config: https://firebase.google.com/docs/admin/setup
-const serviceAccount = config.firebase.serviceAccount
+const config = require('../config')
+const firebaseConfig = config.firebase
 
 const init = () => {
   return new Promise((resolve, reject) => {
     if (!firebaseAdmin.apps.length) {
-      firebaseAdmin.initializeApp({
-        credential: firebaseAdmin.credential.cert(serviceAccount),
-        databaseURL: config.firebase.databaseURL
-      })
+      try {
+        firebaseAdmin.initializeApp({
+          credential: firebaseAdmin.credential.cert(firebaseConfig.serviceAccount),
+          databaseURL: config.firebase.databaseURL
+        })
+      } catch (e) {
+        reject(e)
+      }
     }
 
     resolve(firebaseAdmin)
@@ -34,12 +37,12 @@ const initFirestore = () => {
 
 const initStorage = () => {
   return new Promise((resolve, reject) => {
-    const storage = googleStorage({
-      projectId: serviceAccount.project_id,
-      keyFilename: serviceAccount.private_key
+    const storage = new Storage({
+      projectId: firebaseConfig.serviceAccount.project_id,
+      keyFilename: firebaseConfig.serviceAccount.private_key
     })
 
-    const bucket = storage.bucket("<Firebase Storage Bucket URL")
+    const bucket = storage.bucket(firebaseConfig.storage.bucket_url)
     resolve(bucket)
   })
 }
@@ -112,11 +115,16 @@ const uploadFile = (file) => {
   return new Promise((resolve, reject) => {
     initStorage().then(bucket => {
       if (!file) {
-        reject('No image file')
+        const errorResponse = {
+          status: false,
+          message: 'No image file.'
+        }
+
+        reject(errorResponse)
       }
 
-      let newFileName = `${file.originalname}_${Date.now()}`
-      let fileUpload = bucket.file(newFileName)
+      const newFileName = `${file.originalname}_${Date.now()}`
+      const fileUpload = bucket.file(newFileName)
       const blobStream = fileUpload.createWriteStream({
         metadata: {
           contentType: file.mimetype
@@ -135,7 +143,7 @@ const uploadFile = (file) => {
 
       blobStream.on('finish', () => {
         // The public URL can be used to directly access the file via HTTP.
-        const url = format(`https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`)
+        const url = `https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`
         resolve(url)
       })
 
