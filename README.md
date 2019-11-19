@@ -70,6 +70,8 @@ These are some of patterns definitions to help us to keep a default arquitecture
 - Dates: use Moment.js
 - Logs: use Winston
 - Http Request: use Axios
+- Authentication: JWT
+- Firebase: Storage bucket and Firestore database
 - Express: Cors enabled, cookie and body parser, helmet headers
 - Docker compose and dockerfile attached running migrations e starting database and nodejs
 
@@ -77,10 +79,11 @@ These are some of patterns definitions to help us to keep a default arquitecture
 
 Basic folder structure
 
+- **src/config**: App config (some of these are inherited from .env file)
 - **src/api**: Endpoints and business logic
-- **src/assets**: Images, styles, fonts and others
+- **src/static**: Images, styles, fonts and other files that can be served
 - **src/middlewares**: Middlewares in routes
 - **src/routes**: Routes, :]
-- **src/sql**: SQL files using mustache definitions
+- **src/templates**: mustache interpreted files
 - **src/test**: Mocha and chai unity tests
 - **src/utils**: Utilities, constants, assets, configurations, i18n and others
