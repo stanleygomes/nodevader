@@ -1,3 +1,4 @@
+const path = require('path')
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -20,7 +21,7 @@ const appConfig = {
       'en'
     ],
     defaultLocale: 'pt-BR',
-    directory: './src/utils/locales',
+    directory: path.join(__dirname, '/locales'),
     autoReload: true
   },
   smtp: {
