@@ -8,6 +8,12 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const i18nUtils = require('./utils/i18nUtils')
 const dotenv = require('dotenv')
+const privateKey = config.privateKey
+
+if (privateKey === null || privateKey === undefined) {
+  console.log('None private key set on config/index.js file.')
+  process.exit(1)
+}
 
 dotenv.config()
 
