@@ -68,6 +68,9 @@
     "databaseURL": "https://nodetello.firebaseio.com",
     "firestore": {
       "timestampsInSnapshots": true
+    },
+    "storage": {
+      "bucket_url": "nodetello.appspot.com"
     }
   }
 }

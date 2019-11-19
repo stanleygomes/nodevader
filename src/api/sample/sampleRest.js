@@ -5,14 +5,35 @@ const sampleService = require('./sampleService')
 const logger = require('../../utils/logger')
 const smtp = require('../../utils/smtp')
 const httpRequest = require('../../utils/httpRequest')
-const firestore = require('../../utils/firebaseUtils')
+const firebase = require('../../utils/firebaseUtils')
+const fileUtils = require('../../utils/fileUtils')
 
-sampleRest.get('/firestore', (req, res) => {
-  firestore.createOrUpdateDocument('myFirstCollection', { message: 'Hello World 2!!' }, 'messages').then((response) => {
+sampleRest.get('/firebase', (req, res) => {
+  firebase.createOrUpdateDocument('myFirstCollection', { message: 'Hello World 2!!' }, 'messages').then((response) => {
     httpResponse.json(res, response)
   }).catch((error) => {
     httpResponse.error(res, error)
   })
+})
+
+sampleRest.get('/storage/upload', fileUtils.single('file'), (req, res) => {
+  console.log('Upload Image')
+  const file = req.file
+  if (file) {
+    firebase.uploadFile(file).then((success) => {
+      res.status(200).send({
+        status: 'success'
+      })
+    }).catch((error) => {
+      console.error(error)
+    })
+  }
+
+  // firebase.createOrUpdateDocument('myFirstCollection', { message: 'Hello World 2!!' }, 'messages').then((response) => {
+  //   httpResponse.json(res, response)
+  // }).catch((error) => {
+  //   httpResponse.error(res, error)
+  // })
 })
 
 sampleRest.get('/logger', (req, res) => {

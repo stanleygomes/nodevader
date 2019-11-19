@@ -1,3 +1,4 @@
+const googleStorage = require('@google-cloud/storage')
 const firebaseAdmin = require('firebase-admin')
 const config = require('../config.json')
 // how to get your config: https://firebase.google.com/docs/admin/setup
@@ -31,21 +32,17 @@ const initFirestore = () => {
   })
 }
 
-// const initStorage = () => {
-//   return new Promise((resolve, reject) => {
-//     init().then((firebaseAdmin) => {
-//       const storage = firebaseAdmin.storage()
+const initStorage = () => {
+  return new Promise((resolve, reject) => {
+    const storage = googleStorage({
+      projectId: serviceAccount.project_id,
+      keyFilename: serviceAccount.private_key
+    })
 
-//       const ref = storage.ref()
-
-//       if (!firestore.settings) {
-//         firestore.settings(settings)
-//       }
-
-//       resolve(firestore)
-//     }).catch(error => reject(error))
-//   })
-// }
+    const bucket = storage.bucket("<Firebase Storage Bucket URL")
+    resolve(bucket)
+  })
+}
 
 const createOrUpdateDocument = (collectionKey, data, document) => {
   return new Promise((resolve, reject) => {
@@ -111,43 +108,45 @@ const deleteDocument = (collectionKey, document) => {
   })
 }
 
-// const uploadFile = () => {
-//   return new Promise((resolve, reject) => {
-//     initStorage().then(storage => {
-//       var uploadTask = storage.child('images/rivers.jpg').put(file);
+const uploadFile = (file) => {
+  return new Promise((resolve, reject) => {
+    initStorage().then(bucket => {
+      if (!file) {
+        reject('No image file')
+      }
 
-//       // Register three observers:
-//       // 1. 'state_changed' observer, called any time the state changes
-//       // 2. Error observer, called on failure
-//       // 3. Completion observer, called on successful completion
-//       uploadTask.on('state_changed', function (snapshot) {
-//         // Observe state change events such as progress, pause, and resume
-//         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-//         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-//         console.log('Upload is ' + progress + '% done');
-//         switch (snapshot.state) {
-//           case firebase.storage.TaskState.PAUSED: // or 'paused'
-//             console.log('Upload is paused');
-//             break;
-//           case firebase.storage.TaskState.RUNNING: // or 'running'
-//             console.log('Upload is running');
-//             break;
-//         }
-//       }, function (error) {
-//         // Handle unsuccessful uploads
-//       }, function () {
-//         // Handle successful uploads on complete
-//         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-//         uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-//           console.log('File available at', downloadURL)
-//         })
-//       })
-//     })
-//   })
-// }
+      let newFileName = `${file.originalname}_${Date.now()}`
+      let fileUpload = bucket.file(newFileName)
+      const blobStream = fileUpload.createWriteStream({
+        metadata: {
+          contentType: file.mimetype
+        }
+      })
+
+      blobStream.on('error', (error) => {
+        const errorResponse = {
+          status: false,
+          error: error,
+          message: 'Something is wrong! Unable to upload at the moment.'
+        }
+
+        reject(errorResponse)
+      })
+
+      blobStream.on('finish', () => {
+        // The public URL can be used to directly access the file via HTTP.
+        const url = format(`https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`)
+        resolve(url)
+      })
+
+      blobStream.end(file.buffer)
+    })
+  })
+}
 
 module.exports = {
   createOrUpdateDocument,
   getDocument,
-  deleteDocument
+  deleteDocument,
+  uploadFile
 }
