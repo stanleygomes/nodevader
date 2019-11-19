@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const Mustache = require('mustache')
-const config = require('../config.json')
+const config = require('../config')
 const showQueryDefault = config.showQuery
 const sqlDir = config.sqlDir
 
