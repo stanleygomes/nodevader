@@ -2,9 +2,33 @@ const express = require('express')
 const sampleRest = express.Router()
 const httpResponseUtils = require('../../utils/httpResponseUtils')
 const sampleService = require('./sampleService')
+const firebase = require('../../utils/firebaseUtils')
+const fileUtils = require('../../utils/fileUtils')
 const loggerUtils = require('../../utils/loggerUtils')
 const smtpUtils = require('../../utils/smtpUtils')
 const httpRequestUtils = require('../../utils/httpRequestUtils')
+
+sampleRest.get('/firebase', (req, res) => {
+  firebase.createOrUpdateDocument('myFirstCollection2', { message: 'Hello World 2!!' }, 'messages').then((response) => {
+    httpResponseUtils.json(res, response)
+  }).catch((error) => {
+    httpResponseUtils.error(res, error)
+  })
+})
+
+sampleRest.get('/firebase/upload', fileUtils.single('file'), (req, res) => {
+  console.log('Upload Image')
+  const file = req.file
+  if (file) {
+    firebase.uploadFile(file).then((success) => {
+      res.status(200).send({
+        status: 'success'
+      })
+    }).catch((error) => {
+      console.error(error)
+    })
+  }
+})
 
 sampleRest.get('/logger', (req, res) => {
   loggerUtils.error('Error!!')

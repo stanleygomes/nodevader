@@ -1,5 +1,5 @@
 const express = require('express')
-const config = require('./config.json')
+const config = require('./config')
 const routes = require('./routes')
 const moment = require('moment')
 const cors = require('cors')
@@ -9,19 +9,17 @@ const bodyParser = require('body-parser')
 const i18nUtils = require('./utils/i18nUtils')
 const dotenv = require('dotenv')
 
-// Example: process.env.DB_HOST
 dotenv.config()
 
 const app = express()
 const timeStart = moment().format('DD/MM/YYYY HH:mm')
-
 const expressConfig = {
   cors: config.cors,
   baseEndpoint: config.baseEndpoint,
   port: config.server.port
 }
 
-app.use('/static', express.static('src/public'))
+app.use('/static', express.static('src/static'))
 app.use(cors(expressConfig.cors))
 app.use(helmet())
 app.use(cookieParser())
