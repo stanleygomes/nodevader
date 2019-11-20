@@ -6,8 +6,19 @@ const appConfig = {
   server: {
     port: 3000
   },
-  showQuery: true,
-  sqlDir: './src/sql/',
+  template: {
+    showCompiledTemplate: true,
+    sql: {
+      dir: './sql/sql',
+      container: 'container.html',
+      ext: '.sql'
+    },
+    smtp: {
+      dir: './sql/smtp',
+      container: 'container.html',
+      ext: '.html'
+    }
+  },
   baseEndpoint: '/',
   cors: {
     origin: '*',

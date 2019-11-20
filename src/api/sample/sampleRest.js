@@ -9,6 +9,12 @@ const loggerUtils = require('../../utils/loggerUtils')
 const smtpUtils = require('../../utils/smtpUtils')
 const httpRequestUtils = require('../../utils/httpRequestUtils')
 
+sampleRest.get('/mustache', (req, res) => {
+  sampleService.helloWorld().then((response) => {
+    httpResponseUtils.json(res, response)
+  })
+})
+
 sampleRest.get('/firebase', (req, res) => {
   firebase.createOrUpdateDocument('myFirstCollection2', { message: 'Hello World 2!!' }, 'messages').then((response) => {
     httpResponseUtils.json(res, response)
@@ -30,7 +36,6 @@ sampleRest.get('/firebase/upload', fileUtils.single('file'), (req, res) => {
     })
   }
 })
->>>>>>> master
 
 sampleRest.get('/logger', (req, res) => {
   loggerUtils.error('Error!!')
@@ -47,7 +52,7 @@ sampleRest.get('/helloWorld', (req, res) => {
 })
 
 sampleRest.get('/fs', (req, res) => {
-  fs.writeFile('./test.txt', 'hello!').then(response => {
+  fsUtils.writeFile('./test.txt', 'hello!').then(response => {
     console.log(response)
   })
 })
