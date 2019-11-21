@@ -1,20 +1,24 @@
 const path = require('path')
 const dotenv = require('dotenv')
 dotenv.config()
+const templatesFolder = './src/templates'
 
 const appConfig = {
   server: {
-    port: 3000
+    port: process.env.HTTP_PORT
+  },
+  upload: {
+    maxSize: 5242880 // 5 * 1024 * 1024 = no larger than 5mb, you can change as needed.
   },
   template: {
     showCompiledTemplate: true,
     sql: {
-      dir: './sql/sql',
+      dir: templatesFolder + '/sql',
       container: 'container.html',
       ext: '.sql'
     },
     smtp: {
-      dir: './sql/smtp',
+      dir: templatesFolder + '/smtp',
       container: 'container.html',
       ext: '.html'
     }
@@ -32,7 +36,7 @@ const appConfig = {
       'en'
     ],
     defaultLocale: 'pt-BR',
-    directory: path.join(__dirname, '/locales'),
+    directory: path.join(__dirname, '/i18n-locales'),
     autoReload: true
   },
   smtp: {
