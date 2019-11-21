@@ -2,12 +2,22 @@ const express = require('express')
 const sampleRest = express.Router()
 const httpResponseUtils = require('../../utils/httpResponseUtils')
 const sampleService = require('./sampleService')
-const fsUtils = require('../../utils/fsUtils')
 const firebase = require('../../utils/firebaseUtils')
 const fileUtils = require('../../utils/fileUtils')
 const loggerUtils = require('../../utils/loggerUtils')
 const smtpUtils = require('../../utils/smtpUtils')
 const httpRequestUtils = require('../../utils/httpRequestUtils')
+const mustacheUtils = require('../../utils/mustacheUtils')
+
+sampleRest.get('/mustache', (req, res) => {
+  const params = {
+    id: 30
+  }
+
+  mustacheUtils.getTemplateSQL('getAllUsers', params).then(response => {
+    httpResponseUtils.json(res, response)
+  })
+})
 
 sampleRest.get('/firebase', (req, res) => {
   firebase.createOrUpdateDocument('myFirstCollection2', { message: 'Hello World 2!!' }, 'messages').then((response) => {
@@ -17,8 +27,9 @@ sampleRest.get('/firebase', (req, res) => {
   })
 })
 
-sampleRest.get('/firebase/upload', fileUtils.single('file'), (req, res) => {
+sampleRest.get('/firebase/upload', fileUtils.multer.single('file'), (req, res) => {
   console.log('Upload Image')
+  //
   const file = req.file
   if (file) {
     firebase.uploadFile(file).then((success) => {
@@ -30,7 +41,6 @@ sampleRest.get('/firebase/upload', fileUtils.single('file'), (req, res) => {
     })
   }
 })
->>>>>>> master
 
 sampleRest.get('/logger', (req, res) => {
   loggerUtils.error('Error!!')
@@ -47,7 +57,7 @@ sampleRest.get('/helloWorld', (req, res) => {
 })
 
 sampleRest.get('/fs', (req, res) => {
-  fs.writeFile('./test.txt', 'hello!').then(response => {
+  fileUtils.writeFile('./test.txt', 'hello!').then(response => {
     console.log(response)
   })
 })
