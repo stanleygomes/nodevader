@@ -1,16 +1,16 @@
-const fs = require('fs')
 const path = require('path')
 const Mustache = require('mustache')
 const config = require('../config')
+const fileUtils = require('./fileUtils')
 const showCompiledTemplateDefault = config.template.showCompiledTemplate
 
 const openFile = (templateConfig, name) => {
   return new Promise((resolve, reject) => {
-    const file = fs.readFile(
-      path.resolve(templateConfig.dir, name, templateConfig.ext)
-    ).toString()
-
-    resolve(file)
+    const filePath = path.resolve(templateConfig.dir, name + templateConfig.ext)
+    fileUtils.readFile(filePath).then(response => {
+      const fileContent = response.toString()
+      resolve(fileContent)
+    }).catch(error => reject(error))
   })
 }
 
@@ -30,14 +30,13 @@ const getTemplate = (name, params, templateConfig) => {
   return new Promise((resolve, reject) => {
     openFile(templateConfig, name).then(file => {
       let rendered = null
+      const arrayParam = []
 
       try {
         rendered = Mustache.render(file, params)
       } catch (error) {
         reject(error)
       }
-
-      const arrayParam = []
 
       Object.keys(params).forEach(el => {
         const queryParam = `:${el}`
@@ -73,7 +72,7 @@ const getTemplate = (name, params, templateConfig) => {
       }
 
       resolve(response)
-    }).catch(error => error)
+    }).catch(error => reject(error))
   })
 }
 
