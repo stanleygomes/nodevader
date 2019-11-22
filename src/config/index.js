@@ -9,6 +9,21 @@ const appConfig = {
   showQuery: true,
   sqlDir: './src/sql/',
   baseEndpoint: '/',
+  database: {
+    client: process.env.DB_CLIENT, // you can change here (mysql / pg)
+    connection: {
+      host: process.env.DB_HOST,
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      schema: process.env.DB_SCHEMA
+    },
+    pool: {
+      min: 0,
+      max: 15
+    },
+    acquireConnectionTimeout: 10000
+  },
   cors: {
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
