@@ -1,28 +1,51 @@
 const knex = require('knex')
 const config = require('../config')
 const mustacheUtils = require('./mustache')
+const builder = knex(config.database).withSchema('public')
 
-knex(config.database).withSchema('public')
+/*
+  Insert in batch
+  Params:
+    - rows: array
+    - tableName
+    - returning (fields): array
+    - chunkSize (maximum lines per execution): integer
+*/
+const batchInsert = (rows, tableName, returning, chunkSize) => {
+  return new Promise((resolve, reject) => {
+    const defaultChunkSize = config.database.maxChunkSize
 
-/* Some use cases */
-
-const batchInsert = () => {
-  var rows = [{ ...}, { ...}];
-  var chunkSize = 30;
-  knex.batchInsert('TableName', rows, chunkSize)
-    .returning('id')
-    .then(function (ids) { ... })
-  .catch (function(error) { ... });
-
-knex.transaction(function (tr) {
-  return knex.batchInsert('TableName', rows, chunkSize)
-    .transacting(tr)
-})
-  .then(function () { ... })
-  .catch(function (error) { ... });
+    const a = (tr) => {
+      knex.transacting(tr)
+        .batchInsert(tableName, rows, chunkSize || defaultChunkSize)
+        .returning(returning)
+        .then(response => {
+          resolve(response)
+        })
+        .then(tr.commit)
+        .catch(tr.rollback)
+    }
+  })
 }
 
 /*
+  Run code inside transaction
+  Params:
+    - rows: array
+    - tableName
+    - returning (fields): array
+    - chunkSize (maximum lines per execution): integer
+*/
+const transation = (fn) => {
+  return new Promise((resolve, reject) => {
+    knex.transaction(fn)
+      .then(response => resolve(response))
+      .catch(error => reject(error))
+  })
+}
+
+/*
+  Execute a query from a file
   SQL files folder defined in config/app.js
   Params: filename, params: {id: 2}
 */
@@ -63,10 +86,12 @@ module.exports = {
   basicUpdate,
   basicDelete,
   batchInsert,
-  del,
+  builder,
   namedQuery,
-  knex
+  transation
 }
+
+/* Some use cases */
 
 // select
 knex.select('title', 'author', 'year').from('books')
@@ -117,8 +142,6 @@ knex('books')
 
 // primeiro registro
 knex.table('users').first('id', 'name').then(function (row) { console.log(row); });
-
-
 
 var Promise = require('bluebird');
 
