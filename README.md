@@ -61,8 +61,9 @@ These are some of patterns definitions to help us to keep a default arquitecture
 - Node version: v10.x
 - Linter: eslint standard pattern
 - Migrations: Run on a container described in docker-compose file
+- Database: Use knex query builder and some utils methods on utils/database.js
 - Node Framework: Express
-- SQL Files decoder: Mustache
+- Template Files: Mustache
 - i18n: we have
 - Node server: Nodemon and PM2
 - Date and time: moment
