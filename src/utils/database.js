@@ -4,12 +4,6 @@ const mustacheUtils = require('./mustache')
 
 knex(config.database).withSchema('public')
 
-/* Install postgres connector */
-// npm install --save pg
-
-/* Install mysql connector */
-// npm install --save mysql2
-
 /* Some use cases */
 
 const batchInsert = () => {
