@@ -1,13 +1,12 @@
 const express = require('express')
 const sampleRest = express.Router()
-const httpResponseUtils = require('../../utils/httpResponseUtils')
+const httpResponseUtils = require('../../utils/httpResponse')
 const sampleService = require('./sampleService')
-const fsUtils = require('../../utils/fsUtils')
-const firebase = require('../../utils/firebaseUtils')
-const fileUtils = require('../../utils/fileUtils')
-const loggerUtils = require('../../utils/loggerUtils')
-const smtpUtils = require('../../utils/smtpUtils')
-const httpRequestUtils = require('../../utils/httpRequestUtils')
+const firebase = require('../../utils/firebase')
+const fileUtils = require('../../utils/file')
+const loggerUtils = require('../../utils/logger')
+const smtpUtils = require('../../utils/smtp')
+const httpRequestUtils = require('../../utils/http')
 
 sampleRest.get('/firebase', (req, res) => {
   firebase.createOrUpdateDocument('myFirstCollection2', { message: 'Hello World 2!!' }, 'messages').then((response) => {

@@ -1,4 +1,4 @@
-const i18nUtils = require('./i18nUtils')
+const i18nUtils = require('./i18n')
 
 const error = (res, message, status) => {
   console.log(message || {}, status || {})

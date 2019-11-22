@@ -1,4 +1,4 @@
-const jwt = require('../utils/jwtUtils')
+const jwt = require('../utils/jwt')
 const express = require('express')
 const authMiddleware = express.Router()
 

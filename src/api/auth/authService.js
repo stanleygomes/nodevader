@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const jwtUtil = require('../../utils/jwtUtils')
+const jwtUtil = require('../../utils/jwt')
 
 const getSessionData = (req, res) => {
   return new Promise((resolve, reject) => {

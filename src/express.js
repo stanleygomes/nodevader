@@ -6,12 +6,12 @@ const cors = require('cors')
 const helmet = require('helmet')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
-const i18nUtils = require('./utils/i18nUtils')
+const i18nUtils = require('./utils/i18n')
 const dotenv = require('dotenv')
 const privateKey = config.privateKey
 
 if (privateKey === null || privateKey === undefined) {
-  console.log('None private key set on config/index.js file.')
+  console.log(i18nUtils.translate('none_private_key'))
   process.exit(1)
 }
 

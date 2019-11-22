@@ -1,4 +1,4 @@
-const i18nUtils = require('../../utils/i18nUtils')
+const i18nUtils = require('../../utils/i18n')
 const message = i18nUtils.translate('Hello')
 const joi = require('@hapi/joi')
 

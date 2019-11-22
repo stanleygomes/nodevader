@@ -1,3 +1,7 @@
 {
-	"Hello": "Hello"
+  "Hello": "Ola marilene! hehe!",
+  "system_error": "Hillston, temos um problema.",
+  "route_not_found %s": "Rota '%s' não foi encontrada.",
+  "generic_error": "generic_error",
+  "none_private_key": "None private key set on config/index.js file."
 }
