@@ -1,12 +1,78 @@
 const knex = require('knex')
 const config = require('../config')
-knex(config.database)
+const mustacheUtils = require('./mustache')
+
+knex(config.database).withSchema('public')
 
 /* Install postgres connector */
 // npm install --save pg
 
 /* Install mysql connector */
 // npm install --save mysql2
+
+/* Some use cases */
+
+const batchInsert = () => {
+  var rows = [{ ...}, { ...}];
+  var chunkSize = 30;
+  knex.batchInsert('TableName', rows, chunkSize)
+    .returning('id')
+    .then(function (ids) { ... })
+  .catch (function(error) { ... });
+
+knex.transaction(function (tr) {
+  return knex.batchInsert('TableName', rows, chunkSize)
+    .transacting(tr)
+})
+  .then(function () { ... })
+  .catch(function (error) { ... });
+}
+
+/*
+  SQL files folder defined in config/app.js
+  Params: filename, params: {id: 2}
+*/
+const namedQuery = (name, params) => {
+  return new Promise((resolve, reject) => {
+    mustacheUtils.getTemplateSQL(name, params).then(response => {
+      resolve(response)
+    }).catch(error => reject(error))
+  })
+}
+
+/*
+  Delete itens from database
+  Params: table name, conditions: {value, 200}
+*/
+const basicUpdate = () => {
+
+  // update
+  knex('books')
+    .where('published_date', '<', 2000)
+    .update({
+      status: 'archived',
+      thisKeyIsSkipped: undefined
+    })
+}
+
+/*
+  Delete itens from database
+  Params: table name, conditions: {active: true}
+*/
+const basicDelete = (table, conditions) => {
+  knex('accounts')
+    .where('activated', false)
+    .del()
+}
+
+module.exports = {
+  basicUpdate,
+  basicDelete,
+  batchInsert,
+  del,
+  namedQuery,
+  knex
+}
 
 // select
 knex.select('title', 'author', 'year').from('books')
@@ -53,19 +119,6 @@ knex('books')
 
 // print
 .toSQL()
-
-// update
-knex('books')
-  .where('published_date', '<', 2000)
-  .update({
-    status: 'archived',
-    thisKeyIsSkipped: undefined
-  })
-
-// delete
-knex('accounts')
-  .where('activated', false)
-  .del()
 
 
 // primeiro registro
