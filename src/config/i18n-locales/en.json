@@ -1,0 +1,5 @@
+{
+  "Hello": "Hello world!!",
+  "system_error": "Hillston, we have a problem.",
+  "route_not_found %s": "Route '%s' was not found."
+}
