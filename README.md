@@ -57,7 +57,7 @@ To file a new a feature
 
 These are some of patterns definitions to help us to keep a default arquitecture.
 
-- NPM or Yarn? npm
+- Package manager: npm, sure [NPM vs Yarn](https://medium.com/@vincentnewkirk/npm-vs-yarn-2019-e88757b17038)
 - Node version: v10.x
 - Linter: eslint standard pattern
 - Migrations: Run on a container described in docker-compose file
