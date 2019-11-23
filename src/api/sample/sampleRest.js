@@ -6,7 +6,16 @@ const firebase = require('../../utils/firebase')
 const fileUtils = require('../../utils/file')
 const loggerUtils = require('../../utils/logger')
 const smtpUtils = require('../../utils/smtp')
-const httpRequestUtils = require('../../utils/http')
+const httpRequestUtils = require('../../utils/httpRequest')
+const databaseUtils = require('../../utils/database')
+
+sampleRest.get('/database', (req, res) => {
+  databaseUtils.namedQuery().then(response => {
+    console.log(response)
+  })
+  // databaseUtils.builder()
+  res.send('ok')
+})
 
 sampleRest.get('/firebase', (req, res) => {
   firebase.createOrUpdateDocument('myFirstCollection2', { message: 'Hello World 2!!' }, 'messages').then((response) => {
@@ -29,7 +38,6 @@ sampleRest.get('/firebase/upload', fileUtils.single('file'), (req, res) => {
     })
   }
 })
->>>>>>> master
 
 sampleRest.get('/logger', (req, res) => {
   loggerUtils.error('Error!!')
@@ -46,7 +54,7 @@ sampleRest.get('/helloWorld', (req, res) => {
 })
 
 sampleRest.get('/fs', (req, res) => {
-  fs.writeFile('./test.txt', 'hello!').then(response => {
+  fileUtils.writeFile('./test.txt', 'hello!').then(response => {
     console.log(response)
   })
 })

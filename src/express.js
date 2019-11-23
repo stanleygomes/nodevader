@@ -32,20 +32,6 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(expressConfig.baseEndpoint, routes)
 
-app.use((req, res, next) => {
-  return res
-    .status(404)
-    .send({ message: i18nUtils.translate('route_not_found %s', req.url) })
-})
-
-app.use((err, req, res, next) => {
-  if (err) {
-    return res
-      .status(500)
-      .send({ message: i18nUtils.translate('system_error') })
-  }
-})
-
 module.exports = {
   app: app,
   config: expressConfig,

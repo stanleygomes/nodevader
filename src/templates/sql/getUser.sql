@@ -2,7 +2,7 @@ select
   name,
   email
 from
-  users
+  user
 where
   1 = 1
   {{#filter_id}}

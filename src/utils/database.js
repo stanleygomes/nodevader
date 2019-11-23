@@ -1,47 +1,18 @@
 const knex = require('knex')
 const config = require('../config')
 const mustacheUtils = require('./mustache')
-const builder = knex(config.database).withSchema('public')
+const loggerUtils = require('./logger')
 
 /*
-  Insert in batch
-  Params:
-    - rows: array
-    - tableName
-    - returning (fields): array
-    - chunkSize (maximum lines per execution): integer
+  Start query builder
 */
-const batchInsert = (rows, tableName, returning, chunkSize) => {
-  return new Promise((resolve, reject) => {
-    const defaultChunkSize = config.database.maxChunkSize
-
-    const a = (tr) => {
-      knex.transacting(tr)
-        .batchInsert(tableName, rows, chunkSize || defaultChunkSize)
-        .returning(returning)
-        .then(response => {
-          resolve(response)
-        })
-        .then(tr.commit)
-        .catch(tr.rollback)
-    }
-  })
-}
-
-/*
-  Run code inside transaction
-  Params:
-    - rows: array
-    - tableName
-    - returning (fields): array
-    - chunkSize (maximum lines per execution): integer
-*/
-const transation = (fn) => {
-  return new Promise((resolve, reject) => {
-    knex.transaction(fn)
-      .then(response => resolve(response))
-      .catch(error => reject(error))
-  })
+const builder = () => {
+  try {
+    const startUp = knex(config.database).withSchema('public')
+    return startUp
+  } catch (e) {
+    loggerUtils.error(e)
+  }
 }
 
 /*
@@ -57,144 +28,181 @@ const namedQuery = (name, params) => {
   })
 }
 
-/*
-  Delete itens from database
-  Params: table name, conditions: {value, 200}
-*/
-const basicUpdate = () => {
-
-  // update
-  knex('books')
-    .where('published_date', '<', 2000)
-    .update({
-      status: 'archived',
-      thisKeyIsSkipped: undefined
-    })
-}
-
-/*
-  Delete itens from database
-  Params: table name, conditions: {active: true}
-*/
-const basicDelete = (table, conditions) => {
-  knex('accounts')
-    .where('activated', false)
-    .del()
-}
-
 module.exports = {
-  basicUpdate,
-  basicDelete,
-  batchInsert,
+  // basicUpdate,
+  // basicDelete,
+  // batchInsert,
   builder,
-  namedQuery,
-  transation
+  namedQuery
+  // transation
 }
 
-/* Some use cases */
+// /*
+//   Insert in batch
+//   Params:
+//     - rows: array
+//     - tableName
+//     - returning (fields): array
+//     - chunkSize (maximum lines per execution): integer
+// */
+// const batchInsert = (rows, tableName, returning, chunkSize) => {
+//   return new Promise((resolve, reject) => {
+//     const defaultChunkSize = config.database.maxChunkSize
 
-// select
-knex.select('title', 'author', 'year').from('books')
-knex.select().table('books')
-knex.select('*').from('users')
+//     const a = (tr) => {
+//       knex.transacting(tr)
+//         .batchInsert(tableName, rows, chunkSize || defaultChunkSize)
+//         .returning(returning)
+//         .then(response => {
+//           resolve(response)
+//         })
+//         .then(tr.commit)
+//         .catch(tr.rollback)
+//     }
+//   })
+// }
 
-// schema
-knex.withSchema('public').select('*').from('users')
+// /*
+//   Run code inside transaction
+//   Params:
+//     - rows: array
+//     - tableName
+//     - returning (fields): array
+//     - chunkSize (maximum lines per execution): integer
+// */
+// const transation = (fn) => {
+//   return new Promise((resolve, reject) => {
+//     knex.transaction(fn)
+//       .then(response => resolve(response))
+//       .catch(error => reject(error))
+//   })
+// }
 
-// conditions
-knex('users').where({
-  first_name: 'Test',
-  last_name: 'User'
-}).select('id')
+// /*
+//   Delete itens from database
+//   Params: table name, conditions: {value, 200}
+// */
+// const basicUpdate = () => {
 
-// where in and AND
-knex('users').where((builder) =>
-  builder.whereIn('id', [1, 11, 15]).whereNotIn('id', [17, 19])
-).andWhere(function () {
-  this.where('id', '>', 10)
-})
+//   // update
+//   knex('books')
+//     .where('published_date', '<', 2000)
+//     .update({
+//       status: 'archived',
+//       thisKeyIsSkipped: undefined
+//     })
+// }
 
-// like
-knex('users').where('columnName', 'like', '%rowlikeme%')
+// /*
+//   Delete itens from database
+//   Params: table name, conditions: {active: true}
+// */
+// const basicDelete = (table, conditions) => {
+//   knex('accounts')
+//     .where('activated', false)
+//     .del()
+// }
 
-// is null or not null
-knex('users').whereNull('updated_at')
-knex('users').whereNotNull('updated_at')
-knex('users').whereBetween('votes', [1, 100])
-knex('users').whereNotBetween('votes', [1, 100])
+// /* Some use cases */
 
-// order and group by
-knex('users').orderBy('name', 'desc')
-knex('users').groupBy('count')
-knex('users').orderBy(['email', { column: 'age', order: 'desc' }])
+// // select
+// knex.select('title', 'author', 'year').from('books')
+// knex.select().table('books')
+// knex.select('*').from('users')
 
-knex.select('*').from('users').offset(10)
-knex.select('*').from('users').limit(10).offset(30)
+// // schema
+// knex.withSchema('public').select('*').from('users')
 
-// retorno
-knex('books')
-  .returning(['id', 'title'])
-  .insert({ title: 'Slaughterhouse Five' })
+// // conditions
+// knex('users').where({
+//   first_name: 'Test',
+//   last_name: 'User'
+// }).select('id')
 
-// print
-.toSQL()
+// // where in and AND
+// knex('users').where((builder) =>
+//   builder.whereIn('id', [1, 11, 15]).whereNotIn('id', [17, 19])
+// ).andWhere(function () {
+//   this.where('id', '>', 10)
+// })
 
+// // like
+// knex('users').where('columnName', 'like', '%rowlikeme%')
 
-// primeiro registro
-knex.table('users').first('id', 'name').then(function (row) { console.log(row); });
+// // is null or not null
+// knex('users').whereNull('updated_at')
+// knex('users').whereNotNull('updated_at')
+// knex('users').whereBetween('votes', [1, 100])
+// knex('users').whereNotBetween('votes', [1, 100])
 
-var Promise = require('bluebird');
+// // order and group by
+// knex('users').orderBy('name', 'desc')
+// knex('users').groupBy('count')
+// knex('users').orderBy(['email', { column: 'age', order: 'desc' }])
 
-knex.transaction(function (trx) {
-  knex('books').transacting(trx).insert({ name: 'Old Books' })
-    .then(function (resp) {
-      var id = resp[0];
-      return someExternalMethod(id, trx);
-    })
-    .then(trx.commit)
-    .catch(trx.rollback);
-})
-.then(function (resp) {
-  console.log('Transaction complete.');
-})
-.catch(function (err) {
-  console.error(err);
-})
+// knex.select('*').from('users').offset(10)
+// knex.select('*').from('users').limit(10).offset(30)
 
+// // retorno
+// knex('books')
+//   .returning(['id', 'title'])
+//   .insert({ title: 'Slaughterhouse Five' })
 
+// // print
+// .toSQL()
 
+// // primeiro registro
+// knex.table('users').first('id', 'name').then(function (row) { console.log(row); });
 
-  .insert({ name: 'Old Books' }, 'id')
-  .into('catalogues')
-  .then(function (ids) {
-    books.forEach((book) => book.catalogue_id = ids[0]);
-    return trx('books').insert(books);
-  })
+// var Promise = require('bluebird');
 
-// Using trx as a transaction object:
-knex.transaction(function(trx) {
+// knex.transaction(function (trx) {
+//   knex('books').transacting(trx).insert({ name: 'Old Books' })
+//     .then(function (resp) {
+//       var id = resp[0];
+//       return someExternalMethod(id, trx);
+//     })
+//     .then(trx.commit)
+//     .catch(trx.rollback);
+// })
+// .then(function (resp) {
+//   console.log('Transaction complete.');
+// })
+// .catch(function (err) {
+//   console.error(err);
+// })
 
-  const books = [
-    {title: 'Canterbury Tales'},
-    {title: 'Moby Dick'},
-    {title: 'Hamlet'}
-  ];
+//   .insert({ name: 'Old Books' }, 'id')
+//   .into('catalogues')
+//   .then(function (ids) {
+//     books.forEach((book) => book.catalogue_id = ids[0]);
+//     return trx('books').insert(books);
+//   })
 
-  knex.insert({name: 'Old Books'}, 'id')
-    .into('catalogues')
-    .transacting(trx)
-    .then(function(ids) {
-      books.forEach((book) => book.catalogue_id = ids[0]);
-      return knex('books').insert(books).transacting(trx);
-    })
-    .then(trx.commit)
-    .catch(trx.rollback);
-})
-.then(function(inserts) {
-  console.log(inserts.length + ' new books saved.');
-})
-.catch(function(error) {
-  // If we get here, that means that neither the 'Old Books' catalogues insert,
-  // nor any of the books inserts will have taken place.
-  console.error(error);
-});
+// // Using trx as a transaction object:
+// knex.transaction(function(trx) {
+
+//   const books = [
+//     {title: 'Canterbury Tales'},
+//     {title: 'Moby Dick'},
+//     {title: 'Hamlet'}
+//   ];
+
+//   knex.insert({name: 'Old Books'}, 'id')
+//     .into('catalogues')
+//     .transacting(trx)
+//     .then(function(ids) {
+//       books.forEach((book) => book.catalogue_id = ids[0]);
+//       return knex('books').insert(books).transacting(trx);
+//     })
+//     .then(trx.commit)
+//     .catch(trx.rollback);
+// })
+// .then(function(inserts) {
+//   console.log(inserts.length + ' new books saved.');
+// })
+// .catch(function(error) {
+//   // If we get here, that means that neither the 'Old Books' catalogues insert,
+//   // nor any of the books inserts will have taken place.
+//   console.error(error);
+// });
