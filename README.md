@@ -62,7 +62,7 @@ These are some of patterns definitions to help us to keep a default arquitecture
 - Node Framework: [Express](https://expressjs.com) framework
 - Node server: [Nodemon](https://www.npmjs.com/package/nodemon) and [PM2](https://pm2.keymetrics.io/)
 - Linter: eslint [standard](https://standardjs.com) pattern
-- Migrations: Run on a container described in docker-compose file: [boxfuse/flyway image](https://hub.docker.com/r/boxfuse/flyway/dockerfile)
+- Migrations: Run on a container described in docker-compose file: [boxfuse/flyway](https://hub.docker.com/r/boxfuse/flyway/dockerfile) image
 - Template transpiler: [Mustache](https://mustache.github.io) templates
 - i18n: take a look [here](https://www.npmjs.com/package/i18n)
 - Date and time: [moment](https://momentjs.com)
