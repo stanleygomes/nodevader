@@ -55,7 +55,7 @@ const getTemplate = (name, params = {}, templateConfig) => {
               return
             }
 
-            rendered = rendered.replace(queryParam, atributo)
+            rendered = rendered.replace(queryParam, atributo).toString()
             arrayParam.push(atributo)
           })
         }

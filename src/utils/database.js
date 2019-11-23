@@ -1,36 +1,49 @@
+/*
+  How to use the knex lib
+  Find more hints: https://devhints.io/knex
+*/
 const knex = require('knex')
 const config = require('../config')
 const mustacheUtils = require('./mustache')
 const loggerUtils = require('./logger')
+const i18nUtils = require('./i18n')
 
 /*
-  Start query builder
+  # Start query builder
+  You can use this builder promise to build some queries like:
+  - builder('user').whereNull('updated_at')
+  - builder('users').groupBy('count')
+  - builder('users').orderBy('name', 'desc')
 */
 const builder = () => {
   return new Promise((resolve, reject) => {
     try {
       const k = knex(config.database)
-      console.log('bom')
 
       if (config.database.client === 'pg') {
-        k.withSchema(config.database.connection.schema)
+        resolve(k.withSchema(config.database.connection.schema))
       } else if (config.database.client === 'mysql') {
-        console.log(2)
-        knex(config.database).raw('select * from users')
-          .then(rows => {
-            console.log(1)
-            resolve(rows)
-          }).catch(err => {
-            console.log(3)
-            // console.log(err)
-            console.log(err.stack)
-            loggerUtils.error(err.stack)
-          })
+        resolve(k)
       }
-    } catch (e) {
-      console.log(e)
-      loggerUtils.error(e.stack)
+    } catch (err) {
+      loggerUtils.error(err.stack)
+      reject(err)
     }
+  })
+}
+
+const executeQuery = (query, params = []) => {
+  return new Promise((resolve, reject) => {
+    builder().then(builder => {
+      builder.raw(query, params)
+        .then(rows => {
+          const resp = rows && rows.length ? rows[0] : null
+          resolve(resp)
+        }).catch(err => {
+          loggerUtils.error(err.stack)
+          reject(err)
+        })
+    })
   })
 }
 
@@ -42,34 +55,132 @@ const builder = () => {
 const namedQuery = (name, params) => {
   return new Promise((resolve, reject) => {
     mustacheUtils.getTemplateSQL(name, params).then(query => {
-      const results = execute(query)
-      resolve(results)
+      executeQuery(query.rendered).then(response => {
+        resolve(response)
+      }).catch(error => reject(error))
     }).catch(error => reject(error))
   })
 }
 
-const execute = (query, params = []) => {
-  return builder.raw(query, params)
+/*
+  Execute a basic select in a table with conditions and returning fields
+  Params: tableName, conditions (optional), fields (optional)
+*/
+const basicSelect = (tableName, conditions, fields = '*') => {
+  return new Promise((resolve, reject) => {
+    builder().then(builder => {
+      builder.select(fields)
+        .from(tableName)
+        .where(conditions)
+        .then(rows => {
+          const resp = rows && rows.length ? rows[0] : null
+          resolve(resp)
+        }).catch(err => {
+          loggerUtils.error(err.stack)
+          reject(err)
+        })
+    }).catch(error => reject(error))
+  })
+}
+
+/*
+  Execute a basic select in a table paginating results
+  Params: tableName, limit, offset, conditions (optional), fields (optional)
+*/
+const paginate = (tableName, limit = 15, offset = 0, conditions, fields = '*') => {
+  return new Promise((resolve, reject) => {
+    builder().then(builder => {
+      builder.select(fields)
+        .from(tableName)
+        .where(conditions)
+        .offset(limit)
+        .offset(offset)
+        .then(rows => {
+          const resp = rows && rows.length ? rows[0] : null
+          resolve(resp)
+        }).catch(err => {
+          loggerUtils.error(err.stack)
+          reject(err)
+        })
+    }).catch(error => reject(error))
+  })
+}
+
+// knex.select('*').from('users')
+// knex.select('*').from('users').limit(10).offset(30)
+
+
+/*
+  Execute a basic update in a table
+  Params: tableName, conditions, fields, returning (only for Postgres)
+  Returns: num of updated lines
+*/
+const basicUpdate = (tableName, conditions, fields, returning) => {
+  return new Promise((resolve, reject) => {
+    let validationError = null
+
+    if (!fields || Object.keys(fields).length === 0) {
+      validationError = i18nUtils.translate('field_required %s', 'fields')
+      reject(validationError)
+    }
+
+    if (!conditions || Object.keys(conditions).length === 0) {
+      validationError = i18nUtils.translate('field_required %s', 'conditions')
+      reject(validationError)
+    }
+
+    builder().then(builder => {
+      builder(tableName)
+        .where(conditions)
+        .update(fields, returning)
+        .then(rowsUpdated => {
+          resolve(rowsUpdated)
+        }).catch(err => {
+          loggerUtils.error(err.stack)
+          reject(err)
+        })
+    }).catch(error => reject(error))
+  })
+}
+
+/*
+  Execute a basic delete in a table
+  Params: tableName, fields, conditions
+  Returns: num of deleted lines
+*/
+const basicDelete = (tableName, conditions) => {
+  return new Promise((resolve, reject) => {
+    let validationError = null
+
+    if (!conditions || Object.keys(conditions).length === 0) {
+      validationError = i18nUtils.translate('field_required %s', 'conditions')
+      reject(validationError)
+    }
+
+    builder().then(builder => {
+      builder(tableName)
+        .where(conditions)
+        .del()
+        .then(rowsUpdated => {
+          resolve(rowsUpdated)
+        }).catch(err => {
+          loggerUtils.error(err.stack)
+          reject(err)
+        })
+    }).catch(error => reject(error))
+  })
 }
 
 module.exports = {
-  // basicUpdate,
-  // basicDelete,
+  basicSelect,
+  basicUpdate,
+  basicDelete,
+  paginate,
   // batchInsert,
   builder,
   namedQuery
   // transation
 }
-
-/*
-  SOME HINTS
-  - How to use the knex lib
-  Find more: https://devhints.io/knex
-*/
-
-// knex('users')
-//   .where({ email: 'hi@example.com' })
-//   .then(rows => ···)
 
 // /*
 //   Insert in batch
@@ -112,31 +223,6 @@ module.exports = {
 //   })
 // }
 
-// /*
-//   Delete itens from database
-//   Params: table name, conditions: {value, 200}
-// */
-// const basicUpdate = () => {
-
-//   // update
-//   knex('books')
-//     .where('published_date', '<', 2000)
-//     .update({
-//       status: 'archived',
-//       thisKeyIsSkipped: undefined
-//     })
-// }
-
-// /*
-//   Delete itens from database
-//   Params: table name, conditions: {active: true}
-// */
-// const basicDelete = (table, conditions) => {
-//   knex('accounts')
-//     .where('activated', false)
-//     .del()
-// }
-
 // /* Some use cases */
 
 // // select
@@ -174,6 +260,8 @@ module.exports = {
 // knex('users').groupBy('count')
 // knex('users').orderBy(['email', { column: 'age', order: 'desc' }])
 
+// knex('users').orderBy('name', 'desc')
+// knex('users').groupBy('count')
 // knex.select('*').from('users').offset(10)
 // knex.select('*').from('users').limit(10).offset(30)
 

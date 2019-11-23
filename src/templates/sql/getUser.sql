@@ -1,6 +1,6 @@
 select
-  name,
-  email
+  id,
+  name
 from
   user
 where

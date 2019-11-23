@@ -10,14 +10,28 @@ const httpRequestUtils = require('../../utils/httpRequest')
 const databaseUtils = require('../../utils/database')
 const mustacheUtils = require('../../utils/mustache')
 
-sampleRest.get('/database', (req, res) => {
-  // databaseUtils.namedQuery('getUser', { id: 1 }).then(response => {
-  //   res.send(response)
-  // })
-  databaseUtils.builder().then(response => {
-    console.log(response)
-  }).catch(err => console.log(err))
-  // res.send(a)
+sampleRest.get('/database/namedQuery', (req, res) => {
+  databaseUtils.namedQuery('getUser', { id: 2 }, ['id', 'name']).then(response => {
+    httpResponseUtils.json(res, response)
+  }).catch(err => httpResponseUtils.error(res, err))
+})
+
+sampleRest.get('/database/basicSelect', (req, res) => {
+  databaseUtils.basicSelect('user', { id: 1 }, ['id', 'name']).then(response => {
+    httpResponseUtils.json(res, response)
+  }).catch(err => httpResponseUtils.error(res, err))
+})
+
+sampleRest.get('/database/basicUpdate', (req, res) => {
+  databaseUtils.basicUpdate('user', { id: 1 }, { name: 'Beltrano' }, ['id', 'name']).then(response => {
+    httpResponseUtils.json(res, response)
+  }).catch(err => httpResponseUtils.error(res, err))
+})
+
+sampleRest.get('/database/basicDelete', (req, res) => {
+  databaseUtils.basicDelete('user', { id: 2 }).then(response => {
+    httpResponseUtils.json(res, response)
+  }).catch(err => httpResponseUtils.error(res, err))
 })
 
 sampleRest.get('/mustache', (req, res) => {
