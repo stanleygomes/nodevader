@@ -5,7 +5,7 @@ const createLogger = (loggerConfig) => {
     const logger = winston.createLogger(loggerConfig)
 
     if (!logger) {
-      console.log('erro')
+      console.log('error creating logger')
       reject(reject)
     }
 
@@ -14,22 +14,24 @@ const createLogger = (loggerConfig) => {
 }
 
 const error = (message, level) => {
-  log(message, 'error')
+  log(message.toString(), 'error')
 }
 
 const info = (message, level) => {
-  log(message, 'info')
+  log(message.toString(), 'info')
 }
 
 const log = (message, level) => {
+  const date = new Date()
+  const today = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate()
   const errorLoggerConfig = {
     level: level || 'info',
     transports: [
       new winston.transports.Console(),
       new winston.transports.File({
         level: 'info',
-        filename: 'logs/nodetello-' + (level || 'info') + '.log',
-        maxsize: 10000,
+        filename: 'logs/nodetello-' + (level || 'info') + '-' + today + '.log',
+        maxsize: 100000,
         maxFiles: 10
       })
     ]
