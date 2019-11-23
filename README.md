@@ -57,22 +57,21 @@ To file a new a feature
 
 These are some of patterns definitions to help us to keep a default arquitecture.
 
-- Package manager: npm, sure ([NPM vs Yarn](https://medium.com/@vincentnewkirk/npm-vs-yarn-2019-e88757b17038))
+- Package manager: [npm](https://medium.com/@vincentnewkirk/npm-vs-yarn-2019-e88757b17038), sure
 - Node version: v10.x
-- Linter: eslint standard pattern
-- Migrations: Run on a container described in docker-compose file
-- Node Framework: Express
-- SQL Files decoder: Mustache
-- i18n: we have
-- Node server: Nodemon and PM2
-- Date and time: moment
-- Test: Mocha & chai
-- Dates: use Moment.js
-- Logs: use Winston
-- Http Request: use Axios
-- Authentication: JWT
-- Firebase: Storage bucket and Firestore database
-- Express: Cors enabled, cookie and body parser, helmet headers
+- Node Framework: [Express](https://expressjs.com) framework
+- Node server: [Nodemon](https://www.npmjs.com/package/nodemon) and [PM2](https://pm2.keymetrics.io/)
+- Linter: eslint [standard](https://standardjs.com) pattern
+- Migrations: Run on a container described in docker-compose file: [boxfuse/flyway image](https://hub.docker.com/r/boxfuse/flyway/dockerfile)
+- Template transpiler: [Mustache](https://mustache.github.io) templates
+- i18n: take a look [here](https://www.npmjs.com/package/i18n)
+- Date and time: [moment](https://momentjs.com)
+- Test: [Mocha](https://mochajs.org) & [Chai](https://www.chaijs.com)
+- Logs: use [Winston](https://www.npmjs.com/package/winston)
+- Http Request: use [Axios](https://github.com/axios/axios)
+- Authentication: [JWT](https://www.npmjs.com/package/jwt)
+- Firebase: [Storage](https://www.npmjs.com/package/@google-cloud/storage) bucket and [Firestore](https://www.npmjs.com/package/firebase-admin) database
+- Express: [Cors](https://www.npmjs.com/package/cors) enabled, [cookie](https://www.npmjs.com/package/cookie-parser) and [body](https://www.npmjs.com/package/body-parser) parser, [helmet](https://www.npmjs.com/package/helmet) headers
 - Docker compose and dockerfile attached running migrations e starting database and nodejs
 
 ## Project structure
