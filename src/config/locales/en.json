@@ -1,6 +1,0 @@
-{
-  "Hello": "Hello world!!",
-  "system_error": "Hillston, we have a problem.",
-  "route_not_found %s": "Route '%s' was not found.",
-  "none_private_key": "None private key set on config/index.js file."
-}

@@ -1,9 +1,9 @@
 // const chai = require('chai')
-// const helloWorldService = require('../service/helloWorldService')
+// const mustacheUtils = require('../utils/mustache')
 
 // const expect = chai.expect
 
-// describe('Teste de serviço de helloWorld', () => {
+// describe('Mustache utils tests', () => {
 //   it('Validar retorno de helloWorld', () => {
 //     expect(helloWorldService.show).to.have.lengthOf.above(0)
 //   })

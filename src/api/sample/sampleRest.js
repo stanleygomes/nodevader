@@ -8,13 +8,26 @@ const loggerUtils = require('../../utils/logger')
 const smtpUtils = require('../../utils/smtp')
 const httpRequestUtils = require('../../utils/httpRequest')
 const databaseUtils = require('../../utils/database')
+const mustacheUtils = require('../../utils/mustache')
 
 sampleRest.get('/database', (req, res) => {
-  databaseUtils.namedQuery().then(response => {
+  // databaseUtils.namedQuery('getUser', { id: 1 }).then(response => {
+  //   res.send(response)
+  // })
+  databaseUtils.builder().then(response => {
     console.log(response)
+  }).catch(err => console.log(err))
+  // res.send(a)
+})
+
+sampleRest.get('/mustache', (req, res) => {
+  const params = {
+    id: 30
+  }
+
+  mustacheUtils.getTemplateSQL('getUser', params).then(response => {
+    httpResponseUtils.json(res, response)
   })
-  // databaseUtils.builder()
-  res.send('ok')
 })
 
 sampleRest.get('/firebase', (req, res) => {
@@ -25,8 +38,9 @@ sampleRest.get('/firebase', (req, res) => {
   })
 })
 
-sampleRest.get('/firebase/upload', fileUtils.single('file'), (req, res) => {
+sampleRest.get('/firebase/upload', fileUtils.multer.single('file'), (req, res) => {
   console.log('Upload Image')
+  //
   const file = req.file
   if (file) {
     firebase.uploadFile(file).then((success) => {

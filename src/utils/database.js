@@ -7,12 +7,31 @@ const loggerUtils = require('./logger')
   Start query builder
 */
 const builder = () => {
-  try {
-    const startUp = knex(config.database).withSchema('public')
-    return startUp
-  } catch (e) {
-    loggerUtils.error(e)
-  }
+  return new Promise((resolve, reject) => {
+    try {
+      const k = knex(config.database)
+      console.log('bom')
+
+      if (config.database.client === 'pg') {
+        k.withSchema(config.database.connection.schema)
+      } else if (config.database.client === 'mysql') {
+        console.log(2)
+        knex(config.database).raw('select * from users')
+          .then(rows => {
+            console.log(1)
+            resolve(rows)
+          }).catch(err => {
+            console.log(3)
+            // console.log(err)
+            console.log(err.stack)
+            loggerUtils.error(err.stack)
+          })
+      }
+    } catch (e) {
+      console.log(e)
+      loggerUtils.error(e.stack)
+    }
+  })
 }
 
 /*
@@ -22,10 +41,15 @@ const builder = () => {
 */
 const namedQuery = (name, params) => {
   return new Promise((resolve, reject) => {
-    mustacheUtils.getTemplateSQL(name, params).then(response => {
-      resolve(response)
+    mustacheUtils.getTemplateSQL(name, params).then(query => {
+      const results = execute(query)
+      resolve(results)
     }).catch(error => reject(error))
   })
+}
+
+const execute = (query, params = []) => {
+  return builder.raw(query, params)
 }
 
 module.exports = {
@@ -36,6 +60,16 @@ module.exports = {
   namedQuery
   // transation
 }
+
+/*
+  SOME HINTS
+  - How to use the knex lib
+  Find more: https://devhints.io/knex
+*/
+
+// knex('users')
+//   .where({ email: 'hi@example.com' })
+//   .then(rows => ···)
 
 // /*
 //   Insert in batch
