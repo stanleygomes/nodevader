@@ -19,7 +19,7 @@ Step by step to get this up and running
 ### Clone repo and go to project folder
 
 ```
-git clone https://github.com/stanleygomes/nodetello.git && cd nodetello
+git clone https://github.com/nodetello/nodetello.git && cd nodetello
 ```
 
 ### Install dependencies
@@ -57,34 +57,33 @@ To file a new a feature
 
 These are some of patterns definitions to help us to keep a default arquitecture.
 
-- NPM or Yarn? npm
-- Node version: v10.x
-- Linter: eslint standard pattern
-- Migrations: Run on a container described in docker-compose file
-- Database: Use knex query builder and some utils methods on utils/database.js
-- Node Framework: Express
-- Template Files: Mustache
-- i18n: we have
-- Node server: Nodemon and PM2
-- Date and time: moment
-- Test: Mocha & chai
-- Dates: use Moment.js
-- Logs: use Winston
-- Http Request: use Axios
-- Authentication: JWT
-- Firebase: Storage bucket and Firestore database
-- Express: Cors enabled, cookie and body parser, helmet headers
+- Package manager: [npm](https://medium.com/@vincentnewkirk/npm-vs-yarn-2019-e88757b17038), sure
+- Node version: [v10.x](https://nodejs.org/ca/blog/release/v10.16.3)
+- Node Framework: [Express](https://expressjs.com) framework
+- Node server: [Nodemon](https://www.npmjs.com/package/nodemon) and [PM2](https://pm2.keymetrics.io/)
+- Linter: eslint [standard](https://standardjs.com) pattern
+- Database: Use [knex](http://knexjs.org) query builder and some utils methods on utils/database.js
+- Migrations: Run on a container described in docker-compose file: [boxfuse/flyway](https://hub.docker.com/r/boxfuse/flyway/dockerfile) image
+- Template transpiler: [Mustache](https://mustache.github.io) templates
+- i18n: take a look [here](https://www.npmjs.com/package/i18n)
+- Date and time: [moment](https://momentjs.com)
+- Test: [Mocha](https://mochajs.org) & [Chai](https://www.chaijs.com)
+- Logs: use [Winston](https://www.npmjs.com/package/winston)
+- Http Request: use [Axios](https://github.com/axios/axios)
+- Authentication: [JWT](https://www.npmjs.com/package/jwt)
+- Firebase: [Storage](https://www.npmjs.com/package/@google-cloud/storage) bucket and [Firestore](https://www.npmjs.com/package/firebase-admin) database
+- Express: [Cors](https://www.npmjs.com/package/cors) enabled, [cookie](https://www.npmjs.com/package/cookie-parser) and [body](https://www.npmjs.com/package/body-parser) parser, [helmet](https://www.npmjs.com/package/helmet) headers
 - Docker compose and dockerfile attached running migrations e starting database and nodejs
 
 ## Project structure
 
 Basic folder structure
 
-- **src/config**: App config (some of these are inherited from .env file)
+- **src/config**: App config (some of these are inherited from .env file), constants, configuration and i18n
 - **src/api**: Endpoints and business logic
 - **src/static**: Images, styles, fonts and other files that can be served
-- **src/middlewares**: Middlewares in routes
+- **src/middlewares**: Middlewares for routes
 - **src/routes**: Routes, :]
 - **src/templates**: mustache interpreted files
 - **src/test**: Mocha and chai unity tests
-- **src/utils**: Utilities, constants, assets, configurations, i18n and others
+- **src/utils**: Utilities and modules superior layer implementations
