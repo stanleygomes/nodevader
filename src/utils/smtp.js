@@ -1,5 +1,7 @@
 const config = require('../config')
 const nodemailer = require('nodemailer')
+const mustacheUtils = require('./mustache')
+const loggerUtils = require('./logger')
 
 const validateParameters = (emailData) => {
   let errorMessage = null
@@ -11,8 +13,8 @@ const validateParameters = (emailData) => {
     if (!emailData.subject) {
       errorMessage = 'Invalid mail subject'
     }
-    if (!emailData.html) {
-      errorMessage = 'Invalid mail html'
+    if (!emailData.template) {
+      errorMessage = 'Invalid mail template'
     }
   } else {
     errorMessage = 'Invalid mail parameters'
@@ -28,6 +30,19 @@ const validateParameters = (emailData) => {
   }
 }
 
+const transpile = (emailData, transporter) => {
+  return new Promise((resolve, reject) => {
+    mustacheUtils.getTemplateSMTP(emailData.templateContainer, emailData.params).then(template => {
+      mustacheUtils.getTemplateSMTP(emailData.template, emailData.params).then(templateChild => {
+        const templateContainerRendered = template.rendered.replace('@childTemplate', templateChild.rendered)
+        emailData.html = templateContainerRendered
+        send(emailData, transporter).then(response => resolve(response))
+      }).catch(error => reject(error))
+      send(emailData, transporter).then(response => resolve(response))
+    }).catch(error => reject(error))
+  })
+}
+
 const send = (emailData, transporter) => {
   return new Promise((resolve, reject) => {
     emailData = Object.assign(emailData, config.smtp.send)
@@ -38,9 +53,7 @@ const send = (emailData, transporter) => {
         messageUrl: nodemailer.getTestMessageUrl(info)
       }
       resolve(response)
-    }).catch((error) => {
-      reject(error)
-    })
+    }).catch(error => reject(error))
   })
 }
 
@@ -56,7 +69,7 @@ const sendMail = (emailData) => {
     emailData = Object.assign(emailData, params)
     const transporter = nodemailer.createTransport(config.smtp)
 
-    send(emailData, transporter).then((resolved) => {
+    transpile(emailData, transporter).then((resolved) => {
       const response = {
         emailData: emailData,
         response: resolved
@@ -64,8 +77,8 @@ const sendMail = (emailData) => {
 
       resolve(response)
     }).catch((error) => {
-      const errorMessage = new Error(error)
-      reject(errorMessage)
+      loggerUtils.error(error.stack)
+      reject(error)
     })
   })
 }
