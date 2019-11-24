@@ -29,9 +29,9 @@ const builder = () => {
       } else if (config.database.client === 'mysql') {
         resolve(k)
       }
-    } catch (err) {
-      loggerUtils.error(err.stack)
-      reject(err)
+    } catch (error) {
+      loggerUtils.error(error.stack)
+      reject(error)
     }
   })
 }
@@ -43,9 +43,9 @@ const executeQuery = (query, params = []) => {
         .then(rows => {
           const resp = rows && rows.length ? rows[0] : null
           resolve(resp)
-        }).catch(err => {
-          loggerUtils.error(err.stack)
-          reject(err)
+        }).catch(error => {
+          loggerUtils.error(error.stack)
+          reject(error)
         })
     })
   })
@@ -80,9 +80,9 @@ const basicCount = (tableName, conditions = {}, fields = '*') => {
         .then(rows => {
           const resp = rows && rows.length ? rows[0] : null
           resolve(resp)
-        }).catch(err => {
-          loggerUtils.error(err.stack)
-          reject(err)
+        }).catch(error => {
+          loggerUtils.error(error.stack)
+          reject(error)
         })
     }).catch(error => reject(error))
   })
@@ -103,9 +103,9 @@ const basicSelect = (tableName, conditions = {}, fields = '*') => {
         .then(rows => {
           const resp = rows && rows.length ? rows : null
           resolve(resp)
-        }).catch(err => {
-          loggerUtils.error(err.stack)
-          reject(err)
+        }).catch(error => {
+          loggerUtils.error(error.stack)
+          reject(error)
         })
     }).catch(error => reject(error))
   })
@@ -142,9 +142,9 @@ const basicPaginate = (tableName, conditions = {}, fields = '*', limit = 15, off
           .then(rows => {
             paginateResults.results = (rows && rows.length ? rows : null)
             resolve(paginateResults)
-          }).catch(err => {
-            loggerUtils.error(err.stack)
-            reject(err)
+          }).catch(error => {
+            loggerUtils.error(error.stack)
+            reject(error)
           })
       }).catch(error => reject(error))
     }).catch(error => reject(error))
@@ -177,9 +177,9 @@ const basicUpdate = (tableName, conditions, fields, returning) => {
         .update(fields, returning)
         .then(rowsUpdated => {
           resolve(rowsUpdated)
-        }).catch(err => {
-          loggerUtils.error(err.stack)
-          reject(err)
+        }).catch(error => {
+          loggerUtils.error(error.stack)
+          reject(error)
         })
     }).catch(error => reject(error))
   })
@@ -206,9 +206,9 @@ const basicDelete = (tableName, conditions) => {
         .del()
         .then(rowsUpdated => {
           resolve(rowsUpdated)
-        }).catch(err => {
-          loggerUtils.error(err.stack)
-          reject(err)
+        }).catch(error => {
+          loggerUtils.error(error.stack)
+          reject(error)
         })
     }).catch(error => reject(error))
   })
@@ -234,9 +234,9 @@ const basicInsert = (tableName, fields, returning = []) => {
         .insert(fields)
         .then(rowsInserted => {
           resolve(rowsInserted)
-        }).catch(err => {
-          loggerUtils.error(err.stack)
-          reject(err)
+        }).catch(error => {
+          loggerUtils.error(error.stack)
+          reject(error)
         })
     }).catch(error => reject(error))
   })

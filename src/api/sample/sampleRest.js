@@ -134,9 +134,13 @@ sampleRest.get('/httpRequest', (req, res) => {
 
 sampleRest.get('/sendMail', (req, res) => {
   const emailData = {
-    to: ['recipient1@server.com', 'recipient2@server.com'],
+    to: ['stanleygomesdasilva@gmail.com', 'stanleygomess@hotmail.com'],
     subject: 'Hello ✔✔✔',
-    html: '<b>Hello world ✔✔✔</b>'
+    template: 'helloWorld',
+    templateContainer: 'container',
+    params: {
+      name: 'Fulano'
+    }
   }
 
   smtpUtils.sendMail(emailData).then((response) => {
