@@ -19,7 +19,7 @@ Step by step to get this up and running
 ### Clone repo and go to project folder
 
 ```
-git clone https://github.com/stanleygomes/nodetello.git && cd nodetello
+git clone https://github.com/nodetello/nodetello.git && cd nodetello
 ```
 
 ### Install dependencies
