@@ -14,12 +14,10 @@ const appConfig = {
     showCompiled: true,
     sql: {
       dir: templatesFolder + '/sql',
-      container: 'container.html',
       ext: '.sql'
     },
     smtp: {
       dir: templatesFolder + '/smtp',
-      container: 'container.html',
       ext: '.html'
     }
   },
