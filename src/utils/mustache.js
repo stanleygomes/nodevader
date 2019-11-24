@@ -2,6 +2,7 @@ const path = require('path')
 const Mustache = require('mustache')
 const config = require('../config')
 const fileUtils = require('./file')
+const loggerUtils = require('./logger')
 const showCompiledTemplateDefault = config.template.showCompiled
 
 const openFile = (templateConfig, name) => {
@@ -73,7 +74,10 @@ const getTemplate = (name, params = {}, templateConfig) => {
       }
 
       resolve(response)
-    }).catch(error => reject(error))
+    }).catch(error => {
+      loggerUtils.error(error.stack)
+      reject(error)
+    })
   })
 }
 
