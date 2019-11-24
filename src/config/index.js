@@ -42,7 +42,7 @@ const appConfig = {
       database: process.env.DB_DATABASE,
       schema: process.env.DB_SCHEMA
     },
-    maxChunkSize: 50,
+    maxChunkSize: 2000,
     pool: {
       min: 0,
       max: 15
