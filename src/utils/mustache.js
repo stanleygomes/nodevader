@@ -1,8 +1,8 @@
 const path = require('path')
 const Mustache = require('mustache')
 const config = require('../config')
-const fileUtils = require('./fileUtils')
-const showCompiledTemplateDefault = config.template.showCompiledTemplate
+const fileUtils = require('./file')
+const showCompiledTemplateDefault = config.template.showCompiled
 
 const openFile = (templateConfig, name) => {
   return new Promise((resolve, reject) => {
@@ -26,7 +26,7 @@ const getAllIndexes = (arr, val) => {
   return indexes
 }
 
-const getTemplate = (name, params, templateConfig) => {
+const getTemplate = (name, params = {}, templateConfig) => {
   return new Promise((resolve, reject) => {
     openFile(templateConfig, name).then(file => {
       let rendered = null
@@ -55,7 +55,7 @@ const getTemplate = (name, params, templateConfig) => {
               return
             }
 
-            rendered = rendered.replace(queryParam, atributo)
+            rendered = rendered.replace(queryParam, atributo).toString()
             arrayParam.push(atributo)
           })
         }
@@ -63,7 +63,8 @@ const getTemplate = (name, params, templateConfig) => {
 
       if (showCompiledTemplateDefault === true) {
         console.log('Query: ', rendered)
-        console.log('Params: ', arrayParam)
+        console.log('Params: ', params)
+        console.log('Array params: ', arrayParam)
       }
 
       const response = {

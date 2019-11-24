@@ -6,12 +6,12 @@ const cors = require('cors')
 const helmet = require('helmet')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
-const i18nUtils = require('./utils/i18nUtils')
+const i18nUtils = require('./utils/i18n')
 const dotenv = require('dotenv')
 const privateKey = config.privateKey
 
 if (privateKey === null || privateKey === undefined) {
-  console.log('None private key set on config/index.js file.')
+  console.log(i18nUtils.translate('none_private_key'))
   process.exit(1)
 }
 
@@ -31,20 +31,6 @@ app.use(helmet())
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(expressConfig.baseEndpoint, routes)
-
-app.use((req, res, next) => {
-  return res
-    .status(404)
-    .send({ message: i18nUtils.translate('route_not_found %s', req.url) })
-})
-
-app.use((err, req, res, next) => {
-  if (err) {
-    return res
-      .status(500)
-      .send({ message: i18nUtils.translate('system_error') })
-  }
-})
 
 module.exports = {
   app: app,

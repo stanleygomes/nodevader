@@ -1,20 +1,76 @@
 const express = require('express')
 const sampleRest = express.Router()
-const httpResponseUtils = require('../../utils/httpResponseUtils')
+const httpResponseUtils = require('../../utils/httpResponse')
 const sampleService = require('./sampleService')
-const firebase = require('../../utils/firebaseUtils')
-const fileUtils = require('../../utils/fileUtils')
-const loggerUtils = require('../../utils/loggerUtils')
-const smtpUtils = require('../../utils/smtpUtils')
-const httpRequestUtils = require('../../utils/httpRequestUtils')
-const mustacheUtils = require('../../utils/mustacheUtils')
+const firebase = require('../../utils/firebase')
+const fileUtils = require('../../utils/file')
+const loggerUtils = require('../../utils/logger')
+const smtpUtils = require('../../utils/smtp')
+const httpRequestUtils = require('../../utils/httpRequest')
+const databaseUtils = require('../../utils/database')
+const mustacheUtils = require('../../utils/mustache')
+
+sampleRest.get('/database/namedQuery', (req, res) => {
+  databaseUtils.namedQuery('getUser', { id: 2 }).then(response => {
+    httpResponseUtils.json(res, response)
+  }).catch(err => httpResponseUtils.error(res, err))
+})
+
+sampleRest.get('/database/basicTransation', (req, res) => {
+  databaseUtils.basicTransation().then(trx => {
+    // TODO: a easy way to manage transactions
+    // httpResponseUtils.json(res, response)
+  }).catch(err => httpResponseUtils.error(res, err))
+})
+
+sampleRest.get('/database/basicBatchInsert', (req, res) => {
+  const data = [
+    { name: 'Fulano de tal 1' },
+    { name: 'Fulano de tal 2' },
+    { name: 'Fulano de tal 3' }
+  ]
+
+  databaseUtils.basicBatchInsert('user', data, ['id', 'name']).then(response => {
+    httpResponseUtils.json(res, response)
+  }).catch(err => httpResponseUtils.error(res, err))
+})
+
+sampleRest.get('/database/basicInsert', (req, res) => {
+  databaseUtils.basicInsert('user', { name: 'Fulano de tal' }, ['id', 'name']).then(response => {
+    httpResponseUtils.json(res, response)
+  }).catch(err => httpResponseUtils.error(res, err))
+})
+
+sampleRest.get('/database/basicPaginate', (req, res) => {
+  databaseUtils.basicPaginate('user', {}).then(response => {
+    httpResponseUtils.json(res, response)
+  }).catch(err => httpResponseUtils.error(res, err))
+})
+
+sampleRest.get('/database/basicSelect', (req, res) => {
+  databaseUtils.basicSelect('user', { id: 1 }, ['id', 'name']).then(response => {
+    httpResponseUtils.json(res, response)
+  }).catch(err => httpResponseUtils.error(res, err))
+})
+
+sampleRest.get('/database/basicUpdate', (req, res) => {
+  databaseUtils.basicUpdate('user', { id: 1 }, { name: 'Beltrano' }, ['id', 'name']).then(response => {
+    httpResponseUtils.json(res, response)
+  }).catch(err => httpResponseUtils.error(res, err))
+})
+
+sampleRest.get('/database/basicDelete', (req, res) => {
+  databaseUtils.basicDelete('user', { id: 2 }).then(response => {
+    httpResponseUtils.json(res, response)
+  }).catch(err => httpResponseUtils.error(res, err))
+})
 
 sampleRest.get('/mustache', (req, res) => {
   const params = {
     id: 30
   }
 
-  mustacheUtils.getTemplateSQL('getAllUsers', params).then(response => {
+  mustacheUtils.getTemplateSQL('getUser', params).then(response => {
     httpResponseUtils.json(res, response)
   })
 })

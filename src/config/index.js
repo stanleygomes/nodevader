@@ -5,13 +5,13 @@ const templatesFolder = './src/templates'
 
 const appConfig = {
   server: {
-    port: process.env.HTTP_PORT
+    port: process.env.HTTP_PORT || 3000
   },
   upload: {
     maxSize: 5242880 // 5 * 1024 * 1024 = no larger than 5mb, you can change as needed.
   },
   template: {
-    showCompiledTemplate: true,
+    showCompiled: true,
     sql: {
       dir: templatesFolder + '/sql',
       container: 'container.html',
@@ -24,6 +24,31 @@ const appConfig = {
     }
   },
   baseEndpoint: '/',
+  database: {
+    /*
+      ** you can change here ('mysql' / 'pg')
+
+      Install postgres connector:
+      $ npm install --save pg
+
+      Install mysql connector:
+      $ npm install --save mysql2
+    */
+    client: process.env.DB_CLIENT,
+    connection: {
+      host: process.env.DB_HOST,
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      schema: process.env.DB_SCHEMA
+    },
+    maxChunkSize: 2000,
+    pool: {
+      min: 0,
+      max: 15
+    },
+    acquireConnectionTimeout: 10000
+  },
   cors: {
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
