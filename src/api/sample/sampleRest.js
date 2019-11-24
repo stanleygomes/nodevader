@@ -11,7 +11,19 @@ const databaseUtils = require('../../utils/database')
 const mustacheUtils = require('../../utils/mustache')
 
 sampleRest.get('/database/namedQuery', (req, res) => {
-  databaseUtils.namedQuery('getUser', { id: 2 }, ['id', 'name']).then(response => {
+  databaseUtils.namedQuery('getUser', { id: 2 }).then(response => {
+    httpResponseUtils.json(res, response)
+  }).catch(err => httpResponseUtils.error(res, err))
+})
+
+sampleRest.get('/database/basicInsert', (req, res) => {
+  databaseUtils.basicInsert('user', { name: 'Fulano de tal' }, ['id', 'name']).then(response => {
+    httpResponseUtils.json(res, response)
+  }).catch(err => httpResponseUtils.error(res, err))
+})
+
+sampleRest.get('/database/basicPaginate', (req, res) => {
+  databaseUtils.basicPaginate('user', {}).then(response => {
     httpResponseUtils.json(res, response)
   }).catch(err => httpResponseUtils.error(res, err))
 })
