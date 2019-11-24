@@ -249,39 +249,44 @@ const basicInsert = (tableName, fields, returning = []) => {
     - tableName: string
     - returning (fields): array
     - chunkSize (maximum lines per execution): integer
+  http://knexjs.org/#Utility-BatchInsert
 */
-const batchInsert = (rows, tableName, returning, chunkSize) => {
+const basicBatchInsert = (tableName, rows, returning = [], chunkSize) => {
   return new Promise((resolve, reject) => {
     const defaultChunkSize = config.database.maxChunkSize
-
-    const a = (tr) => {
-      knex.transacting(tr)
-        .batchInsert(tableName, rows, chunkSize || defaultChunkSize)
-        .returning(returning)
-        .then(response => {
-          resolve(response)
-        })
-        .then(tr.commit)
-        .catch(tr.rollback)
-    }
+    builder().then(builder => {
+      builder.transaction((tr) => {
+        builder.batchInsert(tableName, rows, chunkSize || defaultChunkSize)
+          .returning(returning)
+          .then(response => {
+            resolve(response)
+          })
+          .then(tr.commit)
+          .catch(tr.rollback)
+      })
+        .then(response => resolve(response))
+        .catch(error => reject(error))
+    }).catch(error => reject(error))
   })
 }
 
-// /*
-//   Run code inside transaction
-//   Params:
-//     - rows: array
-//     - tableName
-//     - returning (fields): array
-//     - chunkSize (maximum lines per execution): integer
-// */
-// const transation = (fn) => {
-//   return new Promise((resolve, reject) => {
-//     knex.transaction(fn)
-//       .then(response => resolve(response))
-//       .catch(error => reject(error))
-//   })
-// }
+/*
+  Run code inside transaction
+  Params:
+    - rows: array
+    - tableName
+    - returning (fields): array
+    - chunkSize (maximum lines per execution): integer
+*/
+const basicTransation = () => {
+  return new Promise((resolve, reject) => {
+    builder().then(builder => {
+      builder.transaction((tr) => {
+        resolve(tr)
+      }).catch(error => reject(error))
+    }).catch(error => reject(error))
+  })
+}
 
 module.exports = {
   basicCount,
@@ -290,8 +295,8 @@ module.exports = {
   basicPaginate,
   basicSelect,
   basicUpdate,
-  // batchInsert,
+  basicBatchInsert,
   builder,
-  namedQuery
-  // transation
+  namedQuery,
+  basicTransation
 }

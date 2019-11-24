@@ -16,6 +16,25 @@ sampleRest.get('/database/namedQuery', (req, res) => {
   }).catch(err => httpResponseUtils.error(res, err))
 })
 
+sampleRest.get('/database/basicTransation', (req, res) => {
+  databaseUtils.basicTransation().then(trx => {
+    // TODO: a easy way to manage transactions
+    // httpResponseUtils.json(res, response)
+  }).catch(err => httpResponseUtils.error(res, err))
+})
+
+sampleRest.get('/database/basicBatchInsert', (req, res) => {
+  const data = [
+    { name: 'Fulano de tal 1' },
+    { name: 'Fulano de tal 2' },
+    { name: 'Fulano de tal 3' }
+  ]
+
+  databaseUtils.basicBatchInsert('user', data, ['id', 'name']).then(response => {
+    httpResponseUtils.json(res, response)
+  }).catch(err => httpResponseUtils.error(res, err))
+})
+
 sampleRest.get('/database/basicInsert', (req, res) => {
   databaseUtils.basicInsert('user', { name: 'Fulano de tal' }, ['id', 'name']).then(response => {
     httpResponseUtils.json(res, response)
