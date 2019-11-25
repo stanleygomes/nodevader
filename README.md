@@ -74,6 +74,7 @@ These are some of patterns definitions to help us to keep a default arquitecture
 - Http Request: use [Axios](https://github.com/axios/axios)
 - Authentication: [JWT](https://www.npmjs.com/package/jwt)
 - Firebase: [Storage](https://www.npmjs.com/package/@google-cloud/storage) bucket and [Firestore](https://www.npmjs.com/package/firebase-admin) database
+- SMTP email: Send emails using [Nodemailer](https://www.npmjs.com/package/nodemailer) and html templates with mustache
 - Express: [Cors](https://www.npmjs.com/package/cors) enabled, [cookie](https://www.npmjs.com/package/cookie-parser) and [body](https://www.npmjs.com/package/body-parser) parser, [helmet](https://www.npmjs.com/package/helmet) headers
 - Docker compose and dockerfile attached running migrations e starting database and nodejs
 
