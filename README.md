@@ -1,3 +1,5 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/nodetello/nodetello/badge)](https://www.codefactor.io/repository/github/nodetello/nodetello)
+
 # Nodetello
 
 A Teenage Mutant Node Boilerplate
