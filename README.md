@@ -1,4 +1,4 @@
-[![CodeFactor](https://www.codefactor.io/repository/github/nodetello/nodetello/badge)](https://www.codefactor.io/repository/github/nodetello/nodetello)
+[![CodeFactor](https://www.codefactor.io/repository/github/stanleygomes/nodetello/badge)](https://www.codefactor.io/repository/github/stanleygomes/nodetello)
 
 # Nodetello
 
