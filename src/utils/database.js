@@ -19,16 +19,26 @@ const i18nUtils = require('./i18n')
   - builder('user').whereNotNull('updated_at')
   - builder('user').whereBetween('updated_at')
 */
-const builder = () => {
+const builder = (conn = null) => {
   return new Promise((resolve, reject) => {
     try {
-      const k = knex(config.database)
+      let databaseConfig = null
+      if (conn == null) {
+        databaseConfig = config.databases.default
+      } else {
+        databaseConfig = config.databases[conn]
+      }
 
-      if (config.database.client === 'pg') {
-        resolve(k.withSchema(config.database.connection.schema))
-      } else if (config.database.client === 'mysql') {
+      const k = databaseConfig ? knex(databaseConfig) : null
+
+      if (databaseConfig && databaseConfig.client === 'pg') {
+        resolve(k.withSchema(databaseConfig.connection.schema))
+      } else if (databaseConfig && databaseConfig.client === 'mysql') {
         resolve(k)
       }
+
+      const error = new Error('Connection not defined. Please, check config parameters.')
+      reject(error)
     } catch (error) {
       loggerUtils.error(error.stack)
       reject(error)
@@ -36,9 +46,9 @@ const builder = () => {
   })
 }
 
-const executeQuery = (query, params = []) => {
+const executeQuery = (query, params = [], conn = null) => {
   return new Promise((resolve, reject) => {
-    builder().then(builder => {
+    builder(conn).then(builder => {
       builder.raw(query, params)
         .then(rows => {
           const resp = rows && rows.length ? rows[0] : null
@@ -47,6 +57,9 @@ const executeQuery = (query, params = []) => {
           loggerUtils.error(error.stack)
           reject(error)
         })
+    }).catch(error => {
+      loggerUtils.error(error.stack)
+      reject(error)
     })
   })
 }
@@ -56,10 +69,10 @@ const executeQuery = (query, params = []) => {
   SQL files folder defined in config/app.js
   Params: filename, params: {id: 2}
 */
-const namedQuery = (name, params) => {
+const namedQuery = (name, params, conn = null) => {
   return new Promise((resolve, reject) => {
     mustacheUtils.getTemplateSQL(name, params).then(query => {
-      executeQuery(query.rendered).then(response => {
+      executeQuery(query.rendered, conn).then(response => {
         resolve(response)
       }).catch(error => reject(error))
     }).catch(error => reject(error))
@@ -71,9 +84,9 @@ const namedQuery = (name, params) => {
   Params: tableName, conditions (optional), fields (optional)
   http://knexjs.org/#Builder-count
 */
-const basicCount = (tableName, conditions = {}, fields = '*') => {
+const basicCount = (tableName, conditions = {}, fields = '*', conn = null) => {
   return new Promise((resolve, reject) => {
-    builder().then(builder => {
+    builder(conn).then(builder => {
       builder(tableName)
         .count(fields)
         .where(conditions)
@@ -93,9 +106,9 @@ const basicCount = (tableName, conditions = {}, fields = '*') => {
   Params: tableName, conditions (optional), fields (optional)
   http://knexjs.org/#Builder-select
 */
-const basicSelect = (tableName, conditions = {}, fields = '*') => {
+const basicSelect = (tableName, conditions = {}, fields = '*', conn = null) => {
   return new Promise((resolve, reject) => {
-    builder().then(builder => {
+    builder(conn).then(builder => {
       builder(tableName)
         .select(fields)
         .from(tableName)
@@ -116,7 +129,7 @@ const basicSelect = (tableName, conditions = {}, fields = '*') => {
   Params: tableName, limit, offset, conditions (optional), fields (optional)
   http://knexjs.org/#Builder-offset
 */
-const basicPaginate = (tableName, conditions = {}, fields = '*', limit = 15, offset = 60) => {
+const basicPaginate = (tableName, conditions = {}, fields = '*', limit = 15, offset = 60, conn = null) => {
   return new Promise((resolve, reject) => {
     basicCount(tableName, conditions, fields).then(count => {
       const countResults = count ? count['count(*)'] : 0
@@ -132,7 +145,7 @@ const basicPaginate = (tableName, conditions = {}, fields = '*', limit = 15, off
         results: []
       }
 
-      builder().then(builder => {
+      builder(conn).then(builder => {
         builder(tableName)
           .select(fields)
           .from(tableName)
@@ -157,7 +170,7 @@ const basicPaginate = (tableName, conditions = {}, fields = '*', limit = 15, off
   Returns: num of updated lines
   http://knexjs.org/#Builder-update
 */
-const basicUpdate = (tableName, conditions, fields, returning) => {
+const basicUpdate = (tableName, conditions, fields, returning, conn = null) => {
   return new Promise((resolve, reject) => {
     let validationError = null
 
@@ -171,7 +184,7 @@ const basicUpdate = (tableName, conditions, fields, returning) => {
       reject(validationError)
     }
 
-    builder().then(builder => {
+    builder(conn).then(builder => {
       builder(tableName)
         .where(conditions)
         .update(fields, returning)
@@ -191,7 +204,7 @@ const basicUpdate = (tableName, conditions, fields, returning) => {
   Returns: num of deleted lines
   http://knexjs.org/#Builder-del%20/%20delete
 */
-const basicDelete = (tableName, conditions) => {
+const basicDelete = (tableName, conditions, conn = null) => {
   return new Promise((resolve, reject) => {
     let validationError = null
 
@@ -200,7 +213,7 @@ const basicDelete = (tableName, conditions) => {
       reject(validationError)
     }
 
-    builder().then(builder => {
+    builder(conn).then(builder => {
       builder(tableName)
         .where(conditions)
         .del()
@@ -219,7 +232,7 @@ const basicDelete = (tableName, conditions) => {
   Params: tableName, fields, returning (optional, only for postgres, mysql return updated rows)
   http://knexjs.org/#Builder-insert
 */
-const basicInsert = (tableName, fields, returning = []) => {
+const basicInsert = (tableName, fields, returning = [], conn = null) => {
   return new Promise((resolve, reject) => {
     let validationError = null
 
@@ -228,7 +241,7 @@ const basicInsert = (tableName, fields, returning = []) => {
       reject(validationError)
     }
 
-    builder().then(builder => {
+    builder(conn).then(builder => {
       builder(tableName)
         .returning(returning)
         .insert(fields)
@@ -251,10 +264,10 @@ const basicInsert = (tableName, fields, returning = []) => {
     - chunkSize (maximum lines per execution): integer
   http://knexjs.org/#Utility-BatchInsert
 */
-const basicBatchInsert = (tableName, rows, returning = [], chunkSize) => {
+const basicBatchInsert = (tableName, rows, returning = [], chunkSize, conn = null) => {
   return new Promise((resolve, reject) => {
-    const defaultChunkSize = config.database.maxChunkSize
-    builder().then(builder => {
+    const defaultChunkSize = conn != null ? config.databases[conn].maxChunkSize : config.databases.default.maxChunkSize
+    builder(conn).then(builder => {
       builder.transaction((tr) => {
         builder.batchInsert(tableName, rows, chunkSize || defaultChunkSize)
           .returning(returning)
@@ -278,9 +291,9 @@ const basicBatchInsert = (tableName, rows, returning = [], chunkSize) => {
     - returning (fields): array
     - chunkSize (maximum lines per execution): integer
 */
-const basicTransation = () => {
+const basicTransation = (conn = null) => {
   return new Promise((resolve, reject) => {
-    builder().then(builder => {
+    builder(conn).then(builder => {
       builder.transaction((tr) => {
         resolve(tr)
       }).catch(error => reject(error))

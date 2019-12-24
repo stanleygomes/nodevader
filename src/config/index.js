@@ -22,30 +22,31 @@ const appConfig = {
     }
   },
   baseEndpoint: '/',
-  database: {
-    /*
-      ** you can change here ('mysql' / 'pg')
-
-      Install postgres connector:
-      $ npm install --save pg
-
-      Install mysql connector:
-      $ npm install --save mysql2
-    */
-    client: process.env.DB_CLIENT,
-    connection: {
-      host: process.env.DB_HOST,
-      user: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE,
-      schema: process.env.DB_SCHEMA
-    },
-    maxChunkSize: 2000,
-    pool: {
-      min: 0,
-      max: 15
-    },
-    acquireConnectionTimeout: 10000
+  databases: {
+    /* you can define multiple connections here */
+    default: {
+      /*
+        ** you can choose db client here ('mysql' / 'pg')
+        Install postgres connector:
+        $ npm install --save pg
+        Install mysql connector:
+        $ npm install --save mysql2
+      */
+      client: process.env.DB_CLIENT,
+      connection: {
+        host: process.env.DB_HOST,
+        user: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE,
+        schema: process.env.DB_SCHEMA
+      },
+      maxChunkSize: 2000,
+      pool: {
+        min: 0,
+        max: 15
+      },
+      acquireConnectionTimeout: 10000
+    }
   },
   cors: {
     origin: '*',
