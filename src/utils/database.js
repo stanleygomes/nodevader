@@ -72,7 +72,7 @@ const executeQuery = (query, params = [], conn = null) => {
 const namedQuery = (name, params, conn = null) => {
   return new Promise((resolve, reject) => {
     mustacheUtils.getTemplateSQL(name, params).then(query => {
-      executeQuery(query.rendered, conn).then(response => {
+      executeQuery(query.rendered, [], conn).then(response => {
         resolve(response)
       }).catch(error => reject(error))
     }).catch(error => reject(error))
