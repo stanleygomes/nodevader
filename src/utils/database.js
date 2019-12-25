@@ -293,11 +293,12 @@ const basicBatchInsert = (tableName, rows, returning = [], chunkSize, conn = nul
   http://knexjs.org
 */
 const basicBatchUpdate = (tableName, column, rows, conn = null) => {
-  if (rows === null || rows.length === 0) {
-    return false
-  }
-
   return new Promise((resolve, reject) => {
+    if (rows === null || rows.length === 0) {
+      const error = new Error('Can\'t update. No rows to update.')
+      reject(error)
+    }
+
     builder(conn).then(builder => {
       builder.transaction((trx) => {
         const queries = rows.map(tuple => {
