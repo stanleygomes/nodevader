@@ -343,6 +343,7 @@ module.exports = {
   basicSelect,
   basicUpdate,
   basicBatchInsert,
+  basicBatchUpdate,
   builder,
   namedQuery,
   basicTransation
