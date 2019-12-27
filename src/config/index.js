@@ -1,6 +1,9 @@
 const path = require('path')
 const dotenv = require('dotenv')
-dotenv.config()
+dotenv.config({
+  path: process.env.NODE_ENV === 'development' ? '.env.example' : '.env'
+})
+
 const templatesFolder = './src/templates'
 
 const appConfig = {
