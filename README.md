@@ -38,6 +38,14 @@ Via express server
 npm run dev
 ```
 
+### Start enviroment
+
+Copy enviroment variables template
+
+```bash
+cp .env.template .env
+```
+
 Via docker-compose (start database, run migrations and start server)
 
 ```bash
