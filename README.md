@@ -1,4 +1,4 @@
-[![CodeFactor](https://www.codefactor.io/repository/github/stanleygomes/nodetello/badge)](https://www.codefactor.io/repository/github/stanleygomes/nodetello)
+[![CodeFactor](https://www.codefactor.io/repository/github/stanleygomes/nodevader/badge)](https://www.codefactor.io/repository/github/stanleygomes/nodevader)
 
 # Nodetello
 
@@ -21,7 +21,7 @@ Step by step to get this up and running
 ### Clone repo and go to project folder
 
 ```
-git clone https://github.com/nodetello/nodetello.git && cd nodetello
+git clone https://github.com/nodevader/nodevader.git && cd nodevader
 ```
 
 ### Install dependencies
