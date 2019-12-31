@@ -30,7 +30,7 @@ const log = (message, level) => {
       new winston.transports.Console(),
       new winston.transports.File({
         level: 'info',
-        filename: 'logs/nodetello-' + (level || 'info') + '-' + today + '.log',
+        filename: 'logs/nodevader-' + (level || 'info') + '-' + today + '.log',
         maxsize: 100000,
         maxFiles: 10
       })
