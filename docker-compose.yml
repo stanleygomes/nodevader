@@ -2,25 +2,25 @@ version: '3.1'
 services:
   mariadb:
     image: mariadb
-    container_name: nodetello-mariadb
+    container_name: nodevader-mariadb
     restart: always
     ports:
       - 3306:3306
     environment:
-      - MYSQL_DATABASE=nodetello
-      - MYSQL_USER=nodetello
-      - MYSQL_PASSWORD=nodetello
-      - MYSQL_ROOT_PASSWORD=nodetello
+      - MYSQL_DATABASE=nodevader
+      - MYSQL_USER=nodevader
+      - MYSQL_PASSWORD=nodevader
+      - MYSQL_ROOT_PASSWORD=nodevader
     volumes:
       - ./docker/storage/mariadb:/var/lib/mysql
       - ./docker/config/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
   postgres:
     image: postgres:9.6-alpine
-    container_name: nodetello-postgres
+    container_name: nodevader-postgres
     environment:
-      POSTGRES_PASSWORD: nodetello
-      POSTGRES_USER: nodetello
-      POSTGRES_DB: nodetello
+      POSTGRES_PASSWORD: nodevader
+      POSTGRES_USER: nodevader
+      POSTGRES_DB: nodevader
     stdin_open: true
     volumes:
       - ./docker/storage/postgresql:/var/lib/postgresql
@@ -28,16 +28,16 @@ services:
     ports:
       - 5432:5432/tcp
   flyway:
-    container_name: nodetello-flyway
+    container_name: nodevader-flyway
     image: boxfuse/flyway:5.2.4
-    command: -url=jdbc:mysql://nodejs-mariadb/nodetello -schemas=nodetello -user=nodetello -password=nodetello -connectRetries=60 migrate
+    command: -url=jdbc:mysql://nodejs-mariadb/nodevader -schemas=nodevader -user=nodevader -password=nodevader -connectRetries=60 migrate
     volumes:
       - ./docker/migrations:/flyway/sql
     depends_on:
       - mariadb
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: nodetello-phpmyadmin
+    container_name: nodevader-phpmyadmin
     links:
       - mariadb
     environment:
@@ -54,7 +54,7 @@ services:
   api:
     build: ./docker/bin/nodejs
     image: api
-    container_name: nodetello-api
+    container_name: nodevader-api
     environment:
       - NODE_ENV=development
     command: npm run dev
