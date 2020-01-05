@@ -2,7 +2,7 @@
 
 # Nodevader
 
-A Teenage Mutant Node Boilerplate
+Come to the node side 🚀 🌑
 
 The main goal of **Nodevader** is to set patterns to be easily implemented on Nodejs projects. We want to make easy to quick start a Nodejs ambient with the basic resources every project could have. Check out the patterns we defined this document bellow.
 
