@@ -4,7 +4,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch nodetello on debug",
+            "name": "Launch nodevader on debug",
             "program": "${workspaceFolder}/src/index.js"
         }
     ]
