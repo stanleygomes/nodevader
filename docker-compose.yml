@@ -30,7 +30,7 @@ services:
   flyway:
     container_name: nodevader-flyway
     image: boxfuse/flyway:5.2.4
-    command: -url=jdbc:mysql://nodejs-mariadb/nodevader -schemas=nodevader -user=nodevader -password=nodevader -connectRetries=60 migrate
+    command: -url=jdbc:mysql://mariadb/nodevader -schemas=nodevader -user=nodevader -password=nodevader -connectRetries=10 migrate
     volumes:
       - ./docker/migrations:/flyway/sql
     depends_on:
