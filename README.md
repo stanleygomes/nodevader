@@ -1,17 +1,17 @@
-[![CodeFactor](https://www.codefactor.io/repository/github/stanleygomes/nodetello/badge)](https://www.codefactor.io/repository/github/stanleygomes/nodetello)
+[![CodeFactor](https://www.codefactor.io/repository/github/stanleygomes/nodevader/badge)](https://www.codefactor.io/repository/github/stanleygomes/nodevader)
 
-# Nodetello
+# Nodevader
 
-A Teenage Mutant Node Boilerplate
+Come to the node side 🚀 🌑
 
-The main goal of **Nodetello** is to set patterns to be easily implemented on Nodejs projects. We want to make easy to quick start a Nodejs ambient with the basic resources every project could have. Check out the patterns we defined this document bellow.
+The main goal of **Nodevader** is to set patterns to be easily implemented on Nodejs projects. We want to make easy to quick start a Nodejs ambient with the basic resources every project could have. Check out the patterns we defined this document bellow.
 
 *It was inspired by [Juggernaut](https://github.com/SoftboxLab/juggernaut)*.
 
-<p  align="center" style="background:#fbd38b;padding:15px 0;color:#333">
-	<img src="https://i.imgur.com/hATGQ6Q.gif" width="400px" />
+<p  align="center" style="padding:15px 0;">
+	<img src="https://i.imgur.com/z9qKPnW.png" width="400px" />
   <br />
-  Gif by <a href="https://dribbble.com/Reuno" target="_blank">Reuno</a>
+  Icon by <a href="https://dribbble.com/creativeflip" target="_blank">Filipe Carvalho</a>
 </p>
 
 ## Startup
@@ -21,7 +21,7 @@ Step by step to get this up and running
 ### Clone repo and go to project folder
 
 ```
-git clone https://github.com/nodetello/nodetello.git && cd nodetello
+git clone https://github.com/nodevader/nodevader.git && cd nodevader
 ```
 
 ### Install dependencies
@@ -36,6 +36,14 @@ Via express server
 
 ```bash
 npm run dev
+```
+
+### Start enviroment
+
+Copy enviroment variables template
+
+```bash
+cp .env.template .env
 ```
 
 Via docker-compose (start database, run migrations and start server)
