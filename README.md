@@ -86,6 +86,12 @@ These are some of patterns definitions to help us to keep a default arquitecture
 - Express: [Cors](https://www.npmjs.com/package/cors) enabled, [cookie](https://www.npmjs.com/package/cookie-parser) and [body](https://www.npmjs.com/package/body-parser) parser, [helmet](https://www.npmjs.com/package/helmet) headers
 - Docker compose and dockerfile attached running migrations e starting database and nodejs
 
+## Tutorials
+
+Some useful tutorials to improve nodevader's features:
+
+- Deploy to firebase functions: [check here](https://from-tatooine.web.app/deploy-nodejs-firebase)
+
 ## Project structure
 
 Basic folder structure
