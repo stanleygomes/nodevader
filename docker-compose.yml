@@ -5,7 +5,7 @@ services:
     container_name: nodevader-mariadb
     restart: always
     ports:
-      - 3306:3306
+      - 3333:3306
     environment:
       - MYSQL_DATABASE=nodevader
       - MYSQL_USER=nodevader
@@ -26,29 +26,13 @@ services:
       - ./docker/storage/postgresql:/var/lib/postgresql
     tty: true
     ports:
-      - 5432:5432/tcp
+      - 5555:5432/tcp
   flyway:
     container_name: nodevader-flyway
     image: boxfuse/flyway:5.2.4
-    command: -url=jdbc:mysql://nodejs-mariadb/nodevader -schemas=nodevader -user=nodevader -password=nodevader -connectRetries=60 migrate
+    command: -url=jdbc:mysql://mariadb/nodevader -schemas=nodevader -user=nodevader -password=nodevader -connectRetries=10 migrate
     volumes:
       - ./docker/migrations:/flyway/sql
-    depends_on:
-      - mariadb
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: nodevader-phpmyadmin
-    links:
-      - mariadb
-    environment:
-      PMA_HOST: mariadb
-      PMA_PORT: 3306
-    ports:
-      - '8888:80'
-    volumes:
-      - /sessions
-    links:
-      - mariadb
     depends_on:
       - mariadb
   api:
@@ -59,7 +43,7 @@ services:
       - NODE_ENV=development
     command: npm run dev
     ports:
-      - 3000:3000
+      - 8888:3000
     volumes:
       - .:/app
     depends_on:
