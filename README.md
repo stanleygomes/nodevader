@@ -32,7 +32,7 @@ Step by step to get this up and running
 ### Clone repo and go to project folder
 
 ```
-git clone https://github.com/nodevader/nodevader.git && cd nodevader
+git clone https://github.com/stanleygomes/nodevader.git && cd nodevader
 ```
 
 ### Install dependencies
