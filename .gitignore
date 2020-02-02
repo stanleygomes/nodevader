@@ -1,14 +1,12 @@
 # Docker
-docker/storage/mariadb/*
-docker/storage/mysql/*
-docker/logs/apache2/*
-docker/logs/mysql/*
-
-# Certs
-certs/*.cert
+server/storage/mariadb/*
+server/storage/mysql/*
+server/logs/apache2/*
+server/logs/mysql/*
+server/certs/*.cert
+server/logs/*.log
 
 # Logs
-logs/*.log
 *.log
 npm-debug.log*
 yarn-debug.log*
