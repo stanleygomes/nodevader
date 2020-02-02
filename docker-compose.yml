@@ -39,6 +39,7 @@ services:
     build: ./server/bin/nodejs
     image: webserver
     container_name: nodevader-webserver
+    restart: always
     environment:
       - NODE_ENV=development
     command: npm run dev
