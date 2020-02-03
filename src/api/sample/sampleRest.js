@@ -6,7 +6,6 @@ const firebase = require('../../utils/firebase')
 const fileUtils = require('../../utils/file')
 const loggerUtils = require('../../utils/logger')
 const smtpUtils = require('../../utils/smtp')
-const httpUtils = require('../../utils/http')
 const databaseUtils = require('../../utils/database')
 const mustacheUtils = require('../../utils/mustache')
 
