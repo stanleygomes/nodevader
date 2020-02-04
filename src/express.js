@@ -6,15 +6,12 @@ const helmet = require('helmet')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const i18nUtils = require('./utils/i18n')
-const dotenv = require('dotenv')
 const privateKey = config.privateKey
 
 if (privateKey === null || privateKey === undefined) {
   console.log(i18nUtils.translate('none_private_key'))
   process.exit(1)
 }
-
-dotenv.config()
 
 const app = express()
 

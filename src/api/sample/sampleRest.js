@@ -1,26 +1,25 @@
 const express = require('express')
 const sampleRest = express.Router()
-const httpResponseUtils = require('../../utils/httpResponse')
+const httpUtils = require('../../utils/http')
 const sampleService = require('./sampleService')
 const firebase = require('../../utils/firebase')
 const fileUtils = require('../../utils/file')
 const loggerUtils = require('../../utils/logger')
 const smtpUtils = require('../../utils/smtp')
-const httpRequestUtils = require('../../utils/httpRequest')
 const databaseUtils = require('../../utils/database')
 const mustacheUtils = require('../../utils/mustache')
 
 sampleRest.get('/database/namedQuery', (req, res) => {
   databaseUtils.namedQuery('getUser', { id: 2 }).then(response => {
-    httpResponseUtils.json(res, response)
-  }).catch(err => httpResponseUtils.error(res, err))
+    httpUtils.json(res, response)
+  }).catch(err => httpUtils.error(res, err))
 })
 
 sampleRest.get('/database/basicTransation', (req, res) => {
   databaseUtils.basicTransation().then(trx => {
     // TODO: a easy way to manage transactions
-    // httpResponseUtils.json(res, response)
-  }).catch(err => httpResponseUtils.error(res, err))
+    // httpUtils.json(res, response)
+  }).catch(err => httpUtils.error(res, err))
 })
 
 sampleRest.get('/database/basicBatchInsert', (req, res) => {
@@ -31,38 +30,38 @@ sampleRest.get('/database/basicBatchInsert', (req, res) => {
   ]
 
   databaseUtils.basicBatchInsert('user', data, ['id', 'name']).then(response => {
-    httpResponseUtils.json(res, response)
-  }).catch(err => httpResponseUtils.error(res, err))
+    httpUtils.json(res, response)
+  }).catch(err => httpUtils.error(res, err))
 })
 
 sampleRest.get('/database/basicInsert', (req, res) => {
   databaseUtils.basicInsert('user', { name: 'Fulano de tal' }, ['id', 'name']).then(response => {
-    httpResponseUtils.json(res, response)
-  }).catch(err => httpResponseUtils.error(res, err))
+    httpUtils.json(res, response)
+  }).catch(err => httpUtils.error(res, err))
 })
 
 sampleRest.get('/database/basicPaginate', (req, res) => {
   databaseUtils.basicPaginate('user', {}).then(response => {
-    httpResponseUtils.json(res, response)
-  }).catch(err => httpResponseUtils.error(res, err))
+    httpUtils.json(res, response)
+  }).catch(err => httpUtils.error(res, err))
 })
 
 sampleRest.get('/database/basicSelect', (req, res) => {
   databaseUtils.basicSelect('user', { id: 1 }, ['id', 'name']).then(response => {
-    httpResponseUtils.json(res, response)
-  }).catch(err => httpResponseUtils.error(res, err))
+    httpUtils.json(res, response)
+  }).catch(err => httpUtils.error(res, err))
 })
 
 sampleRest.get('/database/basicUpdate', (req, res) => {
   databaseUtils.basicUpdate('user', { id: 1 }, { name: 'Beltrano' }, ['id', 'name']).then(response => {
-    httpResponseUtils.json(res, response)
-  }).catch(err => httpResponseUtils.error(res, err))
+    httpUtils.json(res, response)
+  }).catch(err => httpUtils.error(res, err))
 })
 
 sampleRest.get('/database/basicDelete', (req, res) => {
   databaseUtils.basicDelete('user', { id: 2 }).then(response => {
-    httpResponseUtils.json(res, response)
-  }).catch(err => httpResponseUtils.error(res, err))
+    httpUtils.json(res, response)
+  }).catch(err => httpUtils.error(res, err))
 })
 
 sampleRest.get('/mustache', (req, res) => {
@@ -71,15 +70,15 @@ sampleRest.get('/mustache', (req, res) => {
   }
 
   mustacheUtils.getTemplateSQL('getUser', params).then(response => {
-    httpResponseUtils.json(res, response)
+    httpUtils.json(res, response)
   })
 })
 
 sampleRest.get('/firebase', (req, res) => {
   firebase.createOrUpdateDocument('myFirstCollection2', { message: 'Hello World 2!!' }, 'messages').then((response) => {
-    httpResponseUtils.json(res, response)
+    httpUtils.json(res, response)
   }).catch((error) => {
-    httpResponseUtils.error(res, error)
+    httpUtils.error(res, error)
   })
 })
 
@@ -101,14 +100,14 @@ sampleRest.get('/firebase/upload', fileUtils.multer.single('file'), (req, res) =
 sampleRest.get('/logger', (req, res) => {
   loggerUtils.error('Error!!')
   loggerUtils.info('Info!!')
-  httpResponseUtils.json(res, {
+  httpUtils.json(res, {
     message: 'Written log to a file'
   })
 })
 
 sampleRest.get('/helloWorld', (req, res) => {
   sampleService.helloWorld().then((response) => {
-    httpResponseUtils.json(res, response)
+    httpUtils.json(res, response)
   })
 })
 
@@ -118,17 +117,17 @@ sampleRest.get('/fs', (req, res) => {
   })
 })
 
-sampleRest.get('/httpRequest', (req, res) => {
+sampleRest.get('/http', (req, res) => {
   const params = {
     url: 'https://cdn.vox-cdn.com/thumbor/Pkmq1nm3skO0-j693JTMd7RL0Zk=/0x0:2012x1341/1200x800/filters:focal(0x0:2012x1341)/cdn.vox-cdn.com/uploads/chorus_image/image/47070706/google2.0.0.jpg'
   }
 
-  httpRequestUtils.get(params).then((response) => {
+  httpUtils.get(params).then((response) => {
     console.log('OK')
-    httpResponseUtils.json(res, response)
+    httpUtils.json(res, response)
   }).catch((error) => {
     console.log('error')
-    httpResponseUtils.error(res, error)
+    httpUtils.error(res, error)
   })
 })
 
@@ -145,22 +144,22 @@ sampleRest.get('/sendMail', (req, res) => {
 
   smtpUtils.sendMail(emailData).then((response) => {
     console.log(response)
-    httpResponseUtils.json(res, response)
+    httpUtils.json(res, response)
   }).catch((error) => {
     console.log(error)
     loggerUtils.error(error)
-    httpResponseUtils.error(res, error)
+    httpUtils.error(res, error)
   })
 })
 
 sampleRest.get('/validateJsonBody', (req, res) => {
   sampleService.validateJsonBody(req).then((response) => {
     console.log(response)
-    httpResponseUtils.json(res, response)
+    httpUtils.json(res, response)
   }).catch((error) => {
     console.log(error)
     loggerUtils.error(error)
-    httpResponseUtils.error(res, error)
+    httpUtils.error(res, error)
   })
 })
 
