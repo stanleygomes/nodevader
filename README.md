@@ -6,13 +6,22 @@ Come to the node side 🚀 🌑
 
 The main goal of **Nodevader** is to set patterns to be easily implemented on Nodejs projects. We want to make easy to quick start a Nodejs ambient with the basic resources every project could have. Check out the patterns we defined this document bellow.
 
-*It was inspired by [Juggernaut](https://github.com/SoftboxLab/juggernaut)*.
-
 <p  align="center" style="padding:15px 0;">
 	<img src="https://i.imgur.com/z9qKPnW.png" width="400px" />
   <br />
   Icon by <a href="https://dribbble.com/creativeflip" target="_blank">Filipe Carvalho</a>
 </p>
+
+*******
+Table of contents 
+ 1. [How to get Started](#startup)
+ 2. [Gitflow recommendations](#gitflow)
+ 3. [Patterns and libs](#patterns)
+ 4. [Samples and tutorials of use](#tutorials)
+ 5. [Project structure](#projetcstructure)
+*******
+
+<div id='startup'/>
 
 ## Startup
 
@@ -21,7 +30,7 @@ Step by step to get this up and running
 ### Clone repo and go to project folder
 
 ```
-git clone https://github.com/nodevader/nodevader.git && cd nodevader
+git clone https://github.com/stanleygomes/nodevader.git && cd nodevader
 ```
 
 ### Install dependencies
@@ -52,7 +61,9 @@ Via docker-compose (start database, run migrations and start server)
 docker-compose up
 ```
 
-To test it on the browser, simply go to: `http://localhost:3000/helloWorld`
+To test it on the browser, simply go to: `http://localhost:3000/welcome`
+
+<div id='gitflow'/>
 
 ## Git flow
 
@@ -62,6 +73,8 @@ To file a new a feature
 - file a pull request on `master` branch
 - since your PR is aproved, it will be merged to `master` branch
 - in a moment in time we'll create a release, using the pattern: `release/vX.X.X`
+
+<div id='patterns'/>
 
 ## Patterns
 
@@ -85,6 +98,16 @@ These are some of patterns definitions to help us to keep a default arquitecture
 - SMTP email: Send emails using [Nodemailer](https://www.npmjs.com/package/nodemailer) and html templates with mustache
 - Express: [Cors](https://www.npmjs.com/package/cors) enabled, [cookie](https://www.npmjs.com/package/cookie-parser) and [body](https://www.npmjs.com/package/body-parser) parser, [helmet](https://www.npmjs.com/package/helmet) headers
 - Docker compose and dockerfile attached running migrations e starting database and nodejs
+
+<div id='tutorials'/>
+
+## Tutorials
+
+Some useful tutorials to improve nodevader's features:
+
+- Deploy to firebase functions: [check here](https://from-tatooine.web.app/deploy-nodejs-firebase)
+
+<div id='projetcstructure'/>
 
 ## Project structure
 
