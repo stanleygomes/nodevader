@@ -9,6 +9,9 @@
     "prd": "NODE_ENV=production eslint . && pm2 start src/config/ecosystem.config.js --no-daemon",
     "test": "NODE_ENV=test eslint . && cd ./src && mocha"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/stanleygomes/nodevader"
