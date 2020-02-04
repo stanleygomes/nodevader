@@ -105,6 +105,7 @@ These are some of patterns definitions to help us to keep a default arquitecture
 
 Some useful tutorials to improve nodevader's features:
 
+- Main features: [check here](https://from-tatooine.web.app/nodevader-first-release/)
 - Deploy to firebase functions: [check here](https://from-tatooine.web.app/deploy-nodejs-firebase)
 
 <div id='projetcstructure'/>
