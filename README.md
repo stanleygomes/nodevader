@@ -6,8 +6,6 @@ Come to the node side 🚀 🌑
 
 The main goal of **Nodevader** is to set patterns to be easily implemented on Nodejs projects. We want to make easy to quick start a Nodejs ambient with the basic resources every project could have. Check out the patterns we defined this document bellow.
 
-*It was inspired by [Juggernaut](https://github.com/SoftboxLab/juggernaut)*.
-
 <p  align="center" style="padding:15px 0;">
 	<img src="https://i.imgur.com/z9qKPnW.png" width="400px" />
   <br />
@@ -63,7 +61,7 @@ Via docker-compose (start database, run migrations and start server)
 docker-compose up
 ```
 
-To test it on the browser, simply go to: `http://localhost:3000/helloWorld`
+To test it on the browser, simply go to: `http://localhost:3000/welcome`
 
 <div id='gitflow'/>
 
