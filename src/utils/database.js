@@ -284,6 +284,40 @@ const basicBatchInsert = (tableName, rows, returning = [], chunkSize, conn = nul
 }
 
 /*
+  Update in batch
+  Params:
+    - rows: array
+    - tableName: string
+    - returning (fields): array
+    - chunkSize (maximum lines per execution): integer
+  http://knexjs.org
+*/
+const basicBatchUpdate = (tableName, column, rows, conn = null) => {
+  return new Promise((resolve, reject) => {
+    if (rows === null || rows.length === 0) {
+      const error = new Error('Can\'t update. No rows to update.')
+      reject(error)
+    }
+
+    builder(conn).then(builder => {
+      builder.transaction((trx) => {
+        const queries = rows.map(tuple => {
+          return builder(tableName)
+            .where(column, tuple[column])
+            .update(tuple)
+            .transacting(trx)
+        })
+
+        return Promise.all(queries)
+          .then(trx.commit)
+          .then(response => resolve(response))
+          .catch(trx.rollback)
+      }).catch(error => reject(error))
+    }).catch(error => reject(error))
+  })
+}
+
+/*
   Run code inside transaction
   Params:
     - rows: array
@@ -309,6 +343,7 @@ module.exports = {
   basicSelect,
   basicUpdate,
   basicBatchInsert,
+  basicBatchUpdate,
   builder,
   namedQuery,
   basicTransation
