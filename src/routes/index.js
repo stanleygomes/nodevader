@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const welcomeRest = require('../api/welcome/welcomeRest')
 const authRest = require('../api/auth/authRest')
 const protectedRoutesRest = require('../api/auth/protectedRoutesRest')
 const authMiddleware = require('../middlewares/authMiddleware')
@@ -8,6 +9,7 @@ const loggerUtils = require('../utils/logger')
 
 /* non auth routes */
 router.use('/auth', authRest)
+router.use('/welcome', welcomeRest)
 
 /* auth routes */
 router.use(authMiddleware)
