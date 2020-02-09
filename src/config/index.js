@@ -97,7 +97,7 @@ const appConfig = {
       bucket_url: process.env.FIREBASE_STORAGE_BUCKET_URL
     }
   },
-  privateKey: 'youShoudDescribeAStrongAndPowerfulPrivateKeyHere'
+  privateKey: process.env.APP_KEY
 }
 
 module.exports = appConfig
