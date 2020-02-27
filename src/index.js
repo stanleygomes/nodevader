@@ -18,7 +18,6 @@ if (privateKey === null || privateKey === undefined) {
 
 const app = express()
 
-app.use('/static', express.static('src/static'))
 app.use(cors(config.cors))
 app.use(helmet())
 app.use(cookieParser())

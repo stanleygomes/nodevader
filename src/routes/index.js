@@ -6,10 +6,14 @@ const protectedRoutesRest = require('../api/auth/protectedRoutesRest')
 const authMiddleware = require('../middlewares/authMiddleware')
 const i18nUtils = require('../utils/i18n')
 const loggerUtils = require('../utils/logger')
+const config = require('../config')
 
 /* non auth routes */
 router.use('/auth', authRest)
 router.use('/welcome', welcomeRest)
+
+/* static route for website */
+router.use('/static', express.static(config.server.static))
 
 /* auth routes */
 router.use(authMiddleware)
