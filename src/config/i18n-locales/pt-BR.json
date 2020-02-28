@@ -1,7 +1,8 @@
 {
-  "Hello": "Ola marilene! hehe!",
-  "system_error": "Hillston, temos um problema.",
-  "route_not_found %s": "Rota '%s' não foi encontrada.",
-  "generic_error": "Internal server error.",
-  "field_required %s": "Por favor, informe o parâmetro [%s]."
+	"Hello": "Ola marilene! hehe!",
+	"system_error": "Hillston, temos um problema.",
+	"route_not_found %s": "Rota '%s' não foi encontrada.",
+	"generic_error": "Internal server error.",
+	"field_required %s": "Por favor, informe o parâmetro [%s].",
+	"none_private_key": "Por favor, informe uma chave privada no arquivo [.env]."
 }

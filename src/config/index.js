@@ -5,7 +5,8 @@ const templatesFolder = './src/templates'
 
 const appConfig = {
   server: {
-    port: process.env.HTTP_PORT || 3000
+    port: process.env.HTTP_PORT || 3000,
+    static: 'src/static'
   },
   upload: {
     maxSize: 5242880 // 5 * 1024 * 1024 = no larger than 5mb, you can change as needed.
@@ -97,7 +98,7 @@ const appConfig = {
       bucket_url: process.env.FIREBASE_STORAGE_BUCKET_URL
     }
   },
-  privateKey: 'youShoudDescribeAStrongAndPowerfulPrivateKeyHere'
+  privateKey: process.env.APP_KEY
 }
 
 module.exports = appConfig
