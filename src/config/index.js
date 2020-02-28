@@ -12,7 +12,7 @@ const appConfig = {
     maxSize: 5242880 // 5 * 1024 * 1024 = no larger than 5mb, you can change as needed.
   },
   template: {
-    showCompiled: true,
+    showCompiled: process.env.SHOW_COMPILED_TEMPLATE || false,
     sql: {
       dir: templatesFolder + '/sql',
       ext: '.sql'
