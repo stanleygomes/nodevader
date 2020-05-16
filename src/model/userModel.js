@@ -1,4 +1,5 @@
 const User = {
+  table: 'user',
   primaryKey: 'id',
   fields: ['name', 'email'],
   hidden: ['password'],
