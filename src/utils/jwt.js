@@ -30,13 +30,19 @@ const validateToken = (req) => {
 
 const generateAuthToken = function (user) {
   return new Promise((resolve, reject) => {
-    const token = jwt.sign(user, config.privateKey)
+    const token = jwt.sign(user, config.privateKey, {
+      expiresIn: config.jwt.expiresIn
+    })
+
     if (token === null || token === undefined) {
       const error = 'Error generating token'
       reject(error)
     }
 
-    resolve(token)
+    resolve({
+      token,
+      expiresIn: config.jwt.expiresIn
+    })
   })
 }
 
