@@ -20,7 +20,9 @@ const login = (req, res) => {
     const schema = User.validations.auth
     const validate = validatorUtil.validate(schema, req.body)
     
-    resolve(validate)
+    if (validate.error === true) {
+      resolve(validate.messages)
+    }
 
     const user = {
       id: 1,
