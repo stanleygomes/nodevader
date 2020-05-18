@@ -3,7 +3,7 @@ const Joi = require('@hapi/joi')
 const User = {
   table: 'user',
   primaryKey: 'id',
-  fields: ['id', 'name', 'email'],
+  fields: ['name', 'email'],
   hidden: ['password'],
   dates: ['created_at', 'updated_at', 'deleted_at'],
   validations: {
