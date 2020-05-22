@@ -3,7 +3,6 @@ const router = express.Router()
 const welcomeRest = require('../api/welcome/welcomeRest')
 const authRest = require('../api/auth/authRest')
 const protectedRoutesRest = require('../api/auth/protectedRoutesRest')
-const authMiddleware = require('../middlewares/authMiddleware')
 const i18nUtils = require('../utils/i18n')
 const loggerUtils = require('../utils/logger')
 const config = require('../config')
@@ -14,9 +13,6 @@ router.use('/welcome', welcomeRest)
 
 /* static route for website */
 router.use('/static', express.static(config.server.static))
-
-/* auth routes */
-router.use(authMiddleware)
 router.use('/protected', protectedRoutesRest)
 
 router.use((req, res, next) => {
