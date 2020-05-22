@@ -28,14 +28,14 @@ services:
       - 5432:5432/tcp
     volumes:
       - ./server/storage/postgres:/var/lib/postgresql
-  flyway-postgres:
-    container_name: flyway-postgres
-    image: boxfuse/flyway:5.2.4
-    command: -url=jdbc:postgresql://postgres/tatooine -schemas=tatooine -user=tatooine -password=tatooine migrate
-    volumes:
-      - ./server/migrations:/flyway/sql
-    depends_on:
-      - postgres
+#   flyway-postgres:
+#     container_name: flyway-postgres
+#     image: boxfuse/flyway:5.2.4
+#     command: -url=jdbc:postgresql://postgres/tatooine -schemas=tatooine -user=tatooine -password=tatooine migrate
+#     volumes:
+#       - ./server/migrations:/flyway/sql
+#     depends_on:
+#       - postgres
   flyway-mariadb:
     container_name: nodevader-flyway-mariadb
     image: boxfuse/flyway:5.2.4
@@ -57,4 +57,4 @@ services:
     volumes:
       - .:/app
     depends_on:
-      - flyway
+      - flyway-mariadb
