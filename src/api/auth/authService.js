@@ -34,7 +34,6 @@ const login = (req, res) => {
     delete user.password
 
     jwtUtil.generateAuthToken(user).then(response => {
-      user.token = response
       resolve(response)
     }).catch(error => {
       reject(error)

@@ -65,6 +65,9 @@ const appConfig = {
     directory: path.join(__dirname, '/i18n-locales'),
     autoReload: true
   },
+  jwt: {
+    expiresIn: 604800 // 1 week
+  },
   smtp: {
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
