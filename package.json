@@ -5,9 +5,9 @@
   "main": "./src/index.js",
   "scripts": {
     "lint": "eslint .",
-    "dev": "NODE_ENV=development eslint . && cd ./src && mocha && cd .. && nodemon src/index.js",
-    "prd": "NODE_ENV=production eslint . && pm2 start src/config/ecosystem.config.js --no-daemon",
-    "test": "NODE_ENV=test eslint . && cd ./src && mocha"
+    "dev": "NODE_ENV=development eslint ./src && cd ./src && mocha && cd .. && nodemon src/index.js",
+    "prd": "NODE_ENV=production eslint ./src && pm2 start src/config/ecosystem.config.js --no-daemon",
+    "test": "NODE_ENV=test eslint ./src && cd ./src && mocha"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
