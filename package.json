@@ -1,7 +1,7 @@
 {
   "name": "nodevader",
   "version": "0.0.1",
-  "description": "A Teenage Mutant Node Boilerplate",
+  "description": "Come to the node side",
   "main": "./src/index.js",
   "scripts": {
     "lint": "eslint .",
