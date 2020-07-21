@@ -24,14 +24,4 @@ healthcheckRest.get('/databaseStatus', (req, res) => {
   })
 })
 
-healthcheckRest.get('/databaseDump', (req, res) => {
-  healthcheckService.databaseDump(req, res).then(response => {
-    httpUtils.json(res, response)
-  }).catch(error => {
-    console.log(error)
-    const errorMessage = i18nUtil.translate('system_error')
-    httpUtils.error(res, errorMessage)
-  })
-})
-
 module.exports = healthcheckRest
