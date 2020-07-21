@@ -13,8 +13,8 @@ const postgrator = new Postgrator({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   database: process.env.DB_DATABASE,
-  username: process.env.DB_PASSWORD,
-  password: process.env.DB_USERNAME,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
   // Schema table name. Optional. Default is schemaversion
   // If using Postgres, schema may be specified using . separator
   // For example, { schemaTable: 'schema_name.table_name' }
