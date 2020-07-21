@@ -3,21 +3,31 @@ const nodemailer = require('nodemailer')
 const mustacheUtils = require('./mustache')
 const loggerUtils = require('./logger')
 
-const validateParameters = (emailData) => {
+const validateParameters = (to, subject, template, params) => {
   let errorMessage = null
 
-  if (emailData) {
-    if (emailData.to && emailData.to.length > 0) {
-      emailData.to = emailData.to.join()
-    }
-    if (!emailData.subject) {
-      errorMessage = 'Invalid mail subject'
-    }
-    if (!emailData.template) {
-      errorMessage = 'Invalid mail template'
-    }
-  } else {
-    errorMessage = 'Invalid mail parameters'
+  if (to == null) {
+    errorMessage = 'Invalid mail to'
+  }
+
+  if (to != null && to.length > 0 && Array.isArray(to) === true) {
+    to = to.join()
+  }
+
+  if (subject == null) {
+    errorMessage = 'Invalid mail subject'
+  }
+
+  if (template == null) {
+    errorMessage = 'Invalid mail template'
+  }
+
+  const emailData = {
+    to,
+    subject,
+    template,
+    params,
+    templateContainer: 'container'
   }
 
   if (errorMessage) {
@@ -57,16 +67,15 @@ const send = (emailData, transporter) => {
   })
 }
 
-const sendMail = (emailData) => {
+const sendMail = (to, subject, template, params) => {
   return new Promise((resolve, reject) => {
-    const params = validateParameters(emailData)
+    const emailData = validateParameters(to, subject, template, params)
 
-    if (params && params.error) {
-      const errorMessage = new Error(params.error)
+    if (emailData && emailData.error) {
+      const errorMessage = new Error(emailData.error)
       reject(errorMessage)
     }
 
-    emailData = Object.assign(emailData, params)
     const transporter = nodemailer.createTransport(config.smtp)
 
     transpile(emailData, transporter).then((resolved) => {
