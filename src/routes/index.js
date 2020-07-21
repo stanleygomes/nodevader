@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const welcomeRest = require('../api/welcome/welcomeRest')
 const authRest = require('../api/auth/authRest')
+const healthcheckRest = require('../api/healthcheck/healthcheckRest')
 const protectedRoutesRest = require('../api/auth/protectedRoutesRest')
 const i18nUtils = require('../utils/i18n')
 const loggerUtils = require('../utils/logger')
@@ -10,6 +11,7 @@ const config = require('../config')
 /* non auth routes */
 router.use('/auth', authRest)
 router.use('/welcome', welcomeRest)
+router.use('/healthcheck', healthcheckRest)
 
 /* static route for website */
 router.use('/static', express.static(config.server.static))
