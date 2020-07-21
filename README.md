@@ -1,8 +1,9 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/stanleygomes/nodevader/badge)](https://www.codefactor.io/repository/github/stanleygomes/nodevader)
+![Lint and test](https://github.com/stanleygomes/nodevader/workflows/Lint%20and%20test/badge.svg)
 
 # Nodevader
 
-Come to the node side 🚀 🌑
+A nodejs boilerplate. Come to the node side 🚀 🌑
 
 The main goal of **Nodevader** is to set patterns to be easily implemented on Nodejs projects. We want to make easy to quick start a Nodejs ambient with the basic resources every project could have. Check out the patterns we defined this document bellow.
 
@@ -94,7 +95,6 @@ These are some of patterns definitions to help us to keep a default arquitecture
 - Logs: use [Winston](https://www.npmjs.com/package/winston)
 - Http Request: use [Axios](https://github.com/axios/axios)
 - Authentication: [JWT](https://www.npmjs.com/package/jwt)
-- Firebase: [Storage](https://www.npmjs.com/package/@google-cloud/storage) bucket and [Firestore](https://www.npmjs.com/package/firebase-admin) database
 - SMTP email: Send emails using [Nodemailer](https://www.npmjs.com/package/nodemailer) and html templates with mustache
 - Express: [Cors](https://www.npmjs.com/package/cors) enabled, [cookie](https://www.npmjs.com/package/cookie-parser) and [body](https://www.npmjs.com/package/body-parser) parser, [helmet](https://www.npmjs.com/package/helmet) headers
 - Docker compose and dockerfile attached running migrations e starting database and nodejs
