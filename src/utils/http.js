@@ -1,20 +1,10 @@
 const axios = require('axios')
-const joi = require('@hapi/joi')
 const i18nUtils = require('./i18n')
+const config = require('../config')
 
-const schema = joi.object().keys({
-  method: joi.string(),
-  url: joi.string().required(),
-  responseType: joi.string().required()
-})
-
-const post = (params) => {
+const post = (url, params) => {
   return new Promise((resolve, reject) => {
-    const postParams = {
-      method: 'post'
-    }
-
-    request({ ...params, ...postParams }).then((response) => {
+    request('post', url, params).then((response) => {
       resolve(response)
     }).catch((error) => {
       reject(error)
@@ -22,13 +12,9 @@ const post = (params) => {
   })
 }
 
-const get = (params) => {
+const get = (url, params) => {
   return new Promise((resolve, reject) => {
-    const getParams = {
-      method: 'get'
-    }
-
-    request({ ...params, ...getParams }).then((response) => {
+    request('get', url, params).then((response) => {
       resolve(response)
     }).catch((error) => {
       reject(error)
@@ -36,27 +22,20 @@ const get = (params) => {
   })
 }
 
-const request = (params) => {
+const request = (method, endpoint, body, headers = {}) => {
   return new Promise((resolve, reject) => {
-    const result = joi.validate(params, schema)
-
-    if (!result) {
-      const error = new Error('Invalid parameters')
-      reject(error)
-    }
-
+    const baseURL = config.request.baseUrl
+    const h = Object.assign({}, headers, config.request.defaultHeaders)
     const defaultParams = {
-      baseURL: '',
-      method: 'post',
-      url: '',
-      headers: {},
-      params: {},
-      data: {},
-      timeout: 1000,
-      responseType: 'json'
+      method: method,
+      url: `${baseURL}${endpoint}`,
+      data: JSON.stringify(body),
+      headers: h,
+      timeout: config.request.timeout,
+      responseType: config.request.responseType
     }
 
-    axios({ ...defaultParams, ...params }).then((response) => {
+    axios(defaultParams).then((response) => {
       resolve(response)
     }).catch((error) => {
       reject(error)
