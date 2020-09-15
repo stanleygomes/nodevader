@@ -7,8 +7,8 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const i18nUtils = require('./utils/i18n')
 const privateKey = config.privateKey
-const moment = require('moment')
-const timeStart = moment().format('DD/MM/YYYY HH:mm')
+const dateFns = require('date-fns')
+const timeStart = dateFns.format(new Date(), 'dd/MM/yyyy HH:mm')
 const started = () => console.log(`Running on port ${config.server.port}. Started at: ${timeStart}.`)
 
 if (privateKey === null || privateKey === undefined) {

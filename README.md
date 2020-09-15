@@ -91,7 +91,7 @@ These are some of patterns definitions to help us to keep a default arquitecture
 - Migrations: Run on a container described in docker-compose file: [boxfuse/flyway](https://hub.docker.com/r/boxfuse/flyway/dockerfile) image
 - Template transpiler: [Mustache](https://mustache.github.io) templates
 - i18n: take a look [here](https://www.npmjs.com/package/i18n)
-- Date and time: [moment](https://momentjs.com)
+- Date and time: [date-fns](https://date-fns.org)
 - Test: [Mocha](https://mochajs.org) & [Chai](https://www.chaijs.com)
 - Logs: use [Winston](https://www.npmjs.com/package/winston)
 - Http Request: use [Axios](https://github.com/axios/axios)
