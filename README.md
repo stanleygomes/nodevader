@@ -1,8 +1,8 @@
+# Nodevader
+
 [![CodeFactor](https://www.codefactor.io/repository/github/stanleygomes/nodevader/badge)](https://www.codefactor.io/repository/github/stanleygomes/nodevader)
 ![Shieldfy](https://img.shields.io/badge/Shieldfy%20security%20-1%20issue-yellow)
 ![Lint and test](https://github.com/stanleygomes/nodevader/workflows/Lint%20and%20test/badge.svg)
-
-# Nodevader
 
 A nodejs boilerplate. Come to the node side 🚀 🌑
 
@@ -15,17 +15,26 @@ The main goal of **Nodevader** is to set patterns to be easily implemented on No
 </p>
 
 *******
-Table of contents 
+Table of contents
+
+ 0. [Requirements](#requirements)
  1. [How to get Started](#startup)
  2. [Gitflow recommendations](#gitflow)
  3. [Patterns and libs](#patterns)
  4. [Samples and tutorials of use](#tutorials)
  5. [Project structure](#projetcstructure)
+ 6. [Licence](#license)
 *******
+
+<div id='requirements'/>
+
+## :pencil: Requirements
+
+This boilerplate supports Node.js from version v10.x
 
 <div id='startup'/>
 
-## Startup
+## :rocket: Startup
 
 Step by step to get this up and running
 
@@ -37,7 +46,7 @@ git clone https://github.com/stanleygomes/nodevader.git && cd nodevader
 
 ### Install dependencies
 
-```bash
+```sh
 npm install
 ```
 
@@ -45,7 +54,7 @@ npm install
 
 Via express server
 
-```bash
+```sh
 npm run dev
 ```
 
@@ -53,13 +62,13 @@ npm run dev
 
 Copy enviroment variables template
 
-```bash
+```sh
 cp .env.template .env
 ```
 
 Via docker-compose (start database, run migrations and start server)
 
-```bash
+```sh
 docker-compose up
 ```
 
@@ -67,7 +76,7 @@ To test it on the browser, simply go to: `http://localhost:3000/welcome`
 
 <div id='gitflow'/>
 
-## Git flow
+## :trident: Git flow
 
 To file a new a feature
 
@@ -78,7 +87,7 @@ To file a new a feature
 
 <div id='patterns'/>
 
-## Patterns
+## :heavy_check_mark: Patterns
 
 These are some of patterns definitions to help us to keep a default arquitecture.
 
@@ -91,7 +100,7 @@ These are some of patterns definitions to help us to keep a default arquitecture
 - Migrations: Run on a container described in docker-compose file: [boxfuse/flyway](https://hub.docker.com/r/boxfuse/flyway/dockerfile) image
 - Template transpiler: [Mustache](https://mustache.github.io) templates
 - i18n: take a look [here](https://www.npmjs.com/package/i18n)
-- Date and time: [moment](https://momentjs.com)
+- Date and time: [date-fns](https://date-fns.org)
 - Test: [Mocha](https://mochajs.org) & [Chai](https://www.chaijs.com)
 - Logs: use [Winston](https://www.npmjs.com/package/winston)
 - Http Request: use [Axios](https://github.com/axios/axios)
@@ -102,7 +111,7 @@ These are some of patterns definitions to help us to keep a default arquitecture
 
 <div id='tutorials'/>
 
-## Tutorials
+## :books: Tutorials
 
 Some useful tutorials to improve nodevader's features:
 
@@ -111,7 +120,7 @@ Some useful tutorials to improve nodevader's features:
 
 <div id='projetcstructure'/>
 
-## Project structure
+## :open_file_folder: Project structure
 
 Basic folder structure
 
@@ -123,3 +132,10 @@ Basic folder structure
 - **src/templates**: mustache interpreted files
 - **src/test**: Mocha and chai unity tests
 - **src/utils**: Utilities and modules superior layer implementations
+
+## :scroll: License 
+
+```
+MIT license. Copyright (c) 2019 Stanley.
+For more information, see the LICENSE file.
+```
