@@ -133,6 +133,8 @@ Basic folder structure
 - **src/test**: Mocha and chai unity tests
 - **src/utils**: Utilities and modules superior layer implementations
 
+<div id='license'/>
+
 ## :scroll: License 
 
 ```
