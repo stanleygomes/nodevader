@@ -30,7 +30,7 @@ Table of contents
 
 ## :pencil: Requirements
 
-This boilerplate supports Node.js from version v10.x
+This boilerplate supports Node.js from version v12.x
 
 <div id='startup'/>
 
@@ -92,7 +92,7 @@ To file a new a feature
 These are some of patterns definitions to help us to keep a default arquitecture.
 
 - Package manager: [npm](https://medium.com/@vincentnewkirk/npm-vs-yarn-2019-e88757b17038), sure
-- Node version: [v10.x](https://nodejs.org/ca/blog/release/v10.16.3)
+- Node version: [v12.x](https://nodejs.org/ca/blog/release/v12.14.1)
 - Node Framework: [Express](https://expressjs.com) framework
 - Node server: [Nodemon](https://www.npmjs.com/package/nodemon) and [PM2](https://pm2.keymetrics.io/)
 - Linter: eslint [standard](https://standardjs.com) pattern
