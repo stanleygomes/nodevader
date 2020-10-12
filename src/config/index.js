@@ -101,7 +101,15 @@ const appConfig = {
       bucket_url: process.env.FIREBASE_STORAGE_BUCKET_URL
     }
   },
-  privateKey: process.env.APP_KEY
+  privateKey: process.env.APP_KEY,
+  request: {
+    baseUrl: '',
+    timeout: 1000,
+    responseType: 'json',
+    defaultHeaders: {
+      'Content-Type': 'application/json'
+    }
+  }
 }
 
 module.exports = appConfig
