@@ -1,0 +1,10 @@
+{
+	"Hello": "Bonjour Marilene! hehe!",
+	"system_error": "Hillston, nous avons un problème.",
+	"route_not_found %s": "La route '% s' est introuvable.",
+	"generic_error": "Erreur Interne du Serveur.",
+	"field_required %s": "Veuillez saisir le paramètre [%s].",
+	"none_private_key": "Veuillez saisir une clé privée dans le fichier [.env].",
+	"string.empty %s": "Le champ% s ne peut pas être vide.",
+  "string.email %s": "Le champ% s n'est pas un e-mail valide."
+}
