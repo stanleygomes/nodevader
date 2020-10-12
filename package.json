@@ -24,6 +24,9 @@
     "url": "https://github.com/stanleygomes/nodevader"
   },
   "homepage": "https://github.com/stanleygomes/nodevader",
+  "engines": {
+    "node": ">=12"
+  },
   "dependencies": {
     "@hapi/joi": "^16.1.7",
     "axios": "^0.19.0",
