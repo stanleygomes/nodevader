@@ -1,7 +1,6 @@
 # Nodevader
 
 [![CodeFactor](https://www.codefactor.io/repository/github/stanleygomes/nodevader/badge)](https://www.codefactor.io/repository/github/stanleygomes/nodevader)
-![Shieldfy](https://img.shields.io/badge/Shieldfy%20security%20-1%20issue-yellow)
 ![Lint and test](https://github.com/stanleygomes/nodevader/workflows/Lint%20and%20test/badge.svg)
 
 A nodejs boilerplate. Come to the node side 🚀 🌑
@@ -107,6 +106,7 @@ These are some of patterns definitions to help us to keep a default arquitecture
 - Authentication: [JWT](https://www.npmjs.com/package/jwt)
 - SMTP email: Send emails using [Nodemailer](https://www.npmjs.com/package/nodemailer) and html templates with mustache
 - Express: [Cors](https://www.npmjs.com/package/cors) enabled, [cookie](https://www.npmjs.com/package/cookie-parser) and [body](https://www.npmjs.com/package/body-parser) parser, [helmet](https://www.npmjs.com/package/helmet) headers
+- Migrations: use [postgrator](https://www.npmjs.com/package/postgrator), running `npm run migrate`. Place your migrations on `src/migrations`
 - Docker compose and dockerfile attached running migrations e starting database and nodejs
 
 <div id='tutorials'/>
