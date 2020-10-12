@@ -1,7 +1,6 @@
 # Nodevader
 
 [![CodeFactor](https://www.codefactor.io/repository/github/stanleygomes/nodevader/badge)](https://www.codefactor.io/repository/github/stanleygomes/nodevader)
-![Shieldfy](https://img.shields.io/badge/Shieldfy%20security%20-1%20issue-yellow)
 ![Lint and test](https://github.com/stanleygomes/nodevader/workflows/Lint%20and%20test/badge.svg)
 
 A nodejs boilerplate. Come to the node side 🚀 🌑
