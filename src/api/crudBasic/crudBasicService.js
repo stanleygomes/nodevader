@@ -1,7 +1,7 @@
 const databaseUtil = require('../../utils/database')
 const validatorUtil = require('../../utils/validator')
 const i18nUtil = require('../../utils/i18n')
-const moment = require('moment')
+const dateFns = require('date-fns')
 
 const get = (req, res, sqlQuery) => {
   return new Promise((resolve, reject) => {
@@ -88,7 +88,7 @@ const destroy = (req, res, model) => {
       })
     } else {
       const fields = req.body
-      fields.deleted_at = moment().format('YYYY-MM-DD HH:mm:ss')
+      fields.deleted_at = dateFns.format(new Date(), 'yyyy-MM-dd HH:mm:ss')
 
       databaseUtil.basicUpdate(model.table, req.params, fields).then(res => {
         resolve({
