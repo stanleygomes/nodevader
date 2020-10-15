@@ -53,8 +53,8 @@ const closeConnection = (conn = null) => {
           resolve(conn.destroy())
       }
     } catch (error) {
-      reject(error)
       loggerUtils.error(error.stack)
+      reject(error)
     }
   })
 }
