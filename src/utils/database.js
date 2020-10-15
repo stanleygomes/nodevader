@@ -46,6 +46,21 @@ const builder = (conn = null) => {
   })
 }
 
+const closeConnection = (conn = null) => {
+  return new Promise((resolve, reject) => {
+    try {
+      if (conn) {
+          resolve(conn.destroy());
+      }
+      throw new Error("Can't close connection.")
+    }
+    catch (error) {
+      reject(error)
+      loggerUtils.error(error.stack)
+    }
+  });
+};
+
 const executeQuery = (query, params = [], conn = null) => {
   return new Promise((resolve, reject) => {
     builder(conn).then(builder => {
@@ -121,6 +136,7 @@ const basicSelect = (tableName, conditions = {}, fields = '*', conn = null) => {
           reject(error)
         })
     }).catch(error => reject(error))
+    .finally(() => closeConnection(conn))
   })
 }
 
