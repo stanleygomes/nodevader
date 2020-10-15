@@ -49,17 +49,15 @@ const builder = (conn = null) => {
 const closeConnection = (conn = null) => {
   return new Promise((resolve, reject) => {
     try {
-      if (conn) {
-          resolve(conn.destroy());
+      if (conn != null) {
+          resolve(conn.destroy())
       }
-      throw new Error("Can't close connection.")
-    }
-    catch (error) {
+    } catch (error) {
       reject(error)
       loggerUtils.error(error.stack)
     }
-  });
-};
+  })
+}
 
 const executeQuery = (query, params = [], conn = null) => {
   return new Promise((resolve, reject) => {
