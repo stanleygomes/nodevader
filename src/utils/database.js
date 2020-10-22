@@ -89,6 +89,7 @@ const namedQuery = (name, params, conn = null) => {
         resolve(response)
       }).catch(error => reject(error))
     }).catch(error => reject(error))
+    .finally(() => closeConnection(conn))
   })
 }
 
@@ -110,7 +111,9 @@ const basicCount = (tableName, conditions = {}, fields = '*', conn = null) => {
           loggerUtils.error(error.stack)
           reject(error)
         })
-    }).catch(error => reject(error))
+    })
+    .catch(error => reject(error))
+    .finally(() => closeConnection(conn))
   })
 }
 
@@ -133,7 +136,8 @@ const basicSelect = (tableName, conditions = {}, fields = '*', conn = null) => {
           loggerUtils.error(error.stack)
           reject(error)
         })
-    }).catch(error => reject(error))
+    })
+    .catch(error => reject(error))
     .finally(() => closeConnection(conn))
   })
 }
@@ -175,6 +179,7 @@ const basicPaginate = (tableName, conditions = {}, fields = '*', limit = 15, off
           })
       }).catch(error => reject(error))
     }).catch(error => reject(error))
+    .finally(() => closeConnection(conn))
   })
 }
 
@@ -209,6 +214,7 @@ const basicUpdate = (tableName, conditions, fields, returning, conn = null) => {
           reject(error)
         })
     }).catch(error => reject(error))
+    .finally(() => closeConnection(conn))
   })
 }
 
@@ -238,6 +244,7 @@ const basicDelete = (tableName, conditions, conn = null) => {
           reject(error)
         })
     }).catch(error => reject(error))
+    .finally(() => closeConnection(conn))
   })
 }
 
@@ -266,6 +273,7 @@ const basicInsert = (tableName, fields, returning = [], conn = null) => {
           reject(error)
         })
     }).catch(error => reject(error))
+    .finally(() => closeConnection(conn))
   })
 }
 
@@ -294,6 +302,7 @@ const basicBatchInsert = (tableName, rows, returning = [], chunkSize, conn = nul
         .then(response => resolve(response))
         .catch(error => reject(error))
     }).catch(error => reject(error))
+    .finally(() => closeConnection(conn))
   })
 }
 
@@ -328,6 +337,7 @@ const basicBatchUpdate = (tableName, column, rows, conn = null) => {
           .catch(trx.rollback)
       }).catch(error => reject(error))
     }).catch(error => reject(error))
+    .finally(() => closeConnection(conn))
   })
 }
 
@@ -346,6 +356,7 @@ const basicTransation = (conn = null) => {
         resolve(tr)
       }).catch(error => reject(error))
     }).catch(error => reject(error))
+    .finally(() => closeConnection(conn))
   })
 }
 
