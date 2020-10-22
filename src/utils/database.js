@@ -46,6 +46,19 @@ const builder = (conn = null) => {
   })
 }
 
+const closeConnection = (conn = null) => {
+  return new Promise((resolve, reject) => {
+    try {
+      if (conn != null) {
+          resolve(conn.destroy())
+      }
+    } catch (error) {
+      loggerUtils.error(error.stack)
+      reject(error)
+    }
+  })
+}
+
 const executeQuery = (query, params = [], conn = null) => {
   return new Promise((resolve, reject) => {
     builder(conn).then(builder => {
@@ -121,6 +134,7 @@ const basicSelect = (tableName, conditions = {}, fields = '*', conn = null) => {
           reject(error)
         })
     }).catch(error => reject(error))
+    .finally(() => closeConnection(conn))
   })
 }
 
