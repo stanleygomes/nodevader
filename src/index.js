@@ -11,7 +11,7 @@ const dateFns = require('date-fns')
 const timeStart = dateFns.format(new Date(), 'dd/MM/yyyy HH:mm')
 const started = () => console.log(`Running on port ${config.server.port}. Started at: ${timeStart}.`)
 
-if (privateKey === null || privateKey === undefined) {
+if (!privateKey) {
   console.log(i18nUtils.translate('none_private_key'))
   process.exit(1)
 }
