@@ -6,19 +6,19 @@ const loggerUtils = require('./logger')
 const validateParameters = (to, subject, template, params) => {
   let errorMessage = null
 
-  if (to == null) {
+  if (!to) {
     errorMessage = 'Invalid mail to'
   }
 
-  if (to != null && to.length > 0 && Array.isArray(to) === true) {
+  if (to && Array.isArray(to) && to.length) {
     to = to.join()
   }
 
-  if (subject == null) {
+  if (!subject) {
     errorMessage = 'Invalid mail subject'
   }
 
-  if (template == null) {
+  if (!template) {
     errorMessage = 'Invalid mail template'
   }
 
