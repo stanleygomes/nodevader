@@ -50,7 +50,7 @@ const closeConnection = (conn = null) => {
   return new Promise((resolve, reject) => {
     try {
       if (conn != null) {
-          resolve(conn.destroy())
+        resolve(conn.destroy())
       }
     } catch (error) {
       loggerUtils.error(error.stack)
@@ -69,7 +69,7 @@ const executeQuery = (query, params = [], conn = null) => {
         }).catch(error => {
           loggerUtils.error(error.stack)
           reject(error)
-        })
+        }).finally(() => closeConnection(builder))
     }).catch(error => {
       loggerUtils.error(error.stack)
       reject(error)
@@ -89,7 +89,6 @@ const namedQuery = (name, params, conn = null) => {
         resolve(response)
       }).catch(error => reject(error))
     }).catch(error => reject(error))
-    .finally(() => closeConnection(conn))
   })
 }
 
@@ -110,10 +109,8 @@ const basicCount = (tableName, conditions = {}, fields = '*', conn = null) => {
         }).catch(error => {
           loggerUtils.error(error.stack)
           reject(error)
-        })
-    })
-    .catch(error => reject(error))
-    .finally(() => closeConnection(conn))
+        }).finally(() => closeConnection(builder))
+    }).catch(error => reject(error))
   })
 }
 
@@ -135,10 +132,8 @@ const basicSelect = (tableName, conditions = {}, fields = '*', conn = null) => {
         }).catch(error => {
           loggerUtils.error(error.stack)
           reject(error)
-        })
-    })
-    .catch(error => reject(error))
-    .finally(() => closeConnection(conn))
+        }).finally(() => closeConnection(builder))
+    }).catch(error => reject(error))
   })
 }
 
@@ -176,10 +171,9 @@ const basicPaginate = (tableName, conditions = {}, fields = '*', limit = 15, off
           }).catch(error => {
             loggerUtils.error(error.stack)
             reject(error)
-          })
+          }).finally(() => closeConnection(builder))
       }).catch(error => reject(error))
     }).catch(error => reject(error))
-    .finally(() => closeConnection(conn))
   })
 }
 
@@ -212,9 +206,8 @@ const basicUpdate = (tableName, conditions, fields, returning, conn = null) => {
         }).catch(error => {
           loggerUtils.error(error.stack)
           reject(error)
-        })
+        }).finally(() => closeConnection(builder))
     }).catch(error => reject(error))
-    .finally(() => closeConnection(conn))
   })
 }
 
@@ -242,9 +235,8 @@ const basicDelete = (tableName, conditions, conn = null) => {
         }).catch(error => {
           loggerUtils.error(error.stack)
           reject(error)
-        })
+        }).finally(() => closeConnection(builder))
     }).catch(error => reject(error))
-    .finally(() => closeConnection(conn))
   })
 }
 
@@ -271,9 +263,8 @@ const basicInsert = (tableName, fields, returning = [], conn = null) => {
         }).catch(error => {
           loggerUtils.error(error.stack)
           reject(error)
-        })
+        }).finally(() => closeConnection(builder))
     }).catch(error => reject(error))
-    .finally(() => closeConnection(conn))
   })
 }
 
@@ -298,11 +289,10 @@ const basicBatchInsert = (tableName, rows, returning = [], chunkSize, conn = nul
           })
           .then(tr.commit)
           .catch(tr.rollback)
-      })
+      }).finally(() => closeConnection(builder))
         .then(response => resolve(response))
         .catch(error => reject(error))
     }).catch(error => reject(error))
-    .finally(() => closeConnection(conn))
   })
 }
 
@@ -336,8 +326,8 @@ const basicBatchUpdate = (tableName, column, rows, conn = null) => {
           .then(response => resolve(response))
           .catch(trx.rollback)
       }).catch(error => reject(error))
+        .finally(() => closeConnection(builder))
     }).catch(error => reject(error))
-    .finally(() => closeConnection(conn))
   })
 }
 
@@ -356,7 +346,6 @@ const basicTransation = (conn = null) => {
         resolve(tr)
       }).catch(error => reject(error))
     }).catch(error => reject(error))
-    .finally(() => closeConnection(conn))
   })
 }
 
