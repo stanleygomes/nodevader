@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const config = require('../config')
+const loggerUtils = require('./logger')
 
 const validateToken = (req) => {
   return new Promise((resolve, reject) => {
@@ -18,6 +19,8 @@ const validateToken = (req) => {
       const decoded = jwt.verify(token, config.privateKey)
       resolve(decoded)
     } catch (ex) {
+      loggerUtils.error(ex)
+
       const error = {
         status: 400,
         message: 'Invalid token.'
