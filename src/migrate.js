@@ -1,9 +1,10 @@
+const path = require('path')
 const Postgrator = require('postgrator')
 const dotenv = require('dotenv')
 dotenv.config()
 
 const postgrator = new Postgrator({
-  migrationDirectory: `${__dirname}/migrations/`,
+  migrationDirectory: path.join(__dirname, 'migrations/'),
   // Driver: must be pg, mysql, mysql2 or mssql
   driver: process.env.DB_CLIENT,
   host: process.env.DB_HOST,
@@ -17,7 +18,7 @@ const postgrator = new Postgrator({
 postgrator
   .migrate()
   .then((appliedMigrations) => {
-    console.log('@ Migrations applied successfully.');
+    console.log('@ Migrations applied successfully.')
 
     if (appliedMigrations.length > 0) {
       console.log(appliedMigrations)
