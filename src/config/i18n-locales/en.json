@@ -1,5 +1,8 @@
 {
   "Hello": "Hello world!!",
+  "wellcome":"wellcome",
+  "next": "Next",
+  "data_not_found":"Data not found",
   "system_error": "Hillston, we have a problem.",
   "route_not_found %s": "Route '%s' was not found.",
   "generic_error": "Erro interno no servidor.",
